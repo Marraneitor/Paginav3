@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "name": "sr-sra-burger",
+  "builds": [
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "js/*.js",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/paginaburger.html"
+    },
+    {
+      "src": "/admin",
+      "dest": "/admin.html"
+    },
+    {
+      "src": "/pedidos",
+      "dest": "/controldeenvios.html"
+    }
+  ]
+}
