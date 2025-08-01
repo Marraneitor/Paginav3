@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Burger Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js';
+        import { getFirestore, doc, getDoc, setDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js';
+
+        // Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCf7-6oLHjpNgU1zr4qdTrOKuXGe1ht2Zs",
+            authDomain: "sr-sra-burger.firebaseapp.com",
+            projectId: "sr-sra-burger",
+            storageBucket: "sr-sra-burger.firebasestorage.app",
+            messagingSenderId: "542059080203",
+            appId: "1:542059080203:web:2e15f179a1475b1a77f50e"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Firebase Manager class (same as test pages)
+        class SimpleFirebaseManager {
+            constructor() {
+                this.db = db;
+                this.settingsRef = 'admin-settings';
+            }
+
+            async getSettings() {
+                try {
+                    const docRef = doc(this.db, this.settingsRef, 'main');
+                    const docSnap = await getDoc(docRef);
+                    
+                    if (docSnap.exists()) {
+                        return docSnap.data();
+                    } else {
+                        // Default settings
+                        const defaultSettings = {
+                            serviceActive: true,
+                            hiddenProducts: [],
+                            lastUpdated: new Date().toISOString()
+                        };
+                        await this.saveSettings(defaultSettings);
+                        return defaultSettings;
+                    }
+                } catch (error) {
+                    console.error('Error obteniendo configuraciones:', error);
+                    throw error;
+                }
+            }
+
+            async saveSettings(settings) {
+                try {
+                    const docRef = doc(this.db, this.settingsRef, 'main');
+                    
+                    const settingsToSave = {
+                        ...settings,
+                        lastUpdated: new Date().toISOString()
+                    };
+                    
+                    await setDoc(docRef, settingsToSave);
+                    console.log('Configuraciones guardadas en Firebase');
+                    return true;
+                } catch (error) {
+                    console.error('Error guardando configuraciones:', error);
+                    throw error;
+                }
+            }
+
+            listenToSettings(callback) {
+                try {
+                    const docRef = doc(this.db, this.settingsRef, 'main');
+                    return onSnapshot(docRef, (docSnap) => {
+                        if (docSnap.exists()) {
+                            const data = docSnap.data();
+                            console.log('Firebase listener recibió datos:', JSON.stringify(data, null, 2));
+                            callback(data);
+                        } else {
+                            console.log('No se encontró documento en Firebase');
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error en listener de configuraciones:', error);
+                }
+            }
+        }
+
+        // Make Firebase Manager available globally
+        window.firebaseManager = new SimpleFirebaseManager();
+        console.log('✅ Firebase Manager creado y disponible globalmente');
+        
+        // También hacer disponible Firebase db
+        window.firebaseDb = db;
+        window.firebaseApp = app;
+    </script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #10b981;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-lg border-b-4 border-yellow-400">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-crown text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">Panel de Administración</h1>
+                        <p class="text-gray-600">Controla tu restaurante desde aquí</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="window.open('paginaburger.html', '_blank')" 
+                            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-external-link-alt mr-2"></i>Ver Página Principal
+                    </button>
+                    <div id="service-status-indicator" class="flex items-center space-x-2">
+                        <div id="status-dot" class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                        <span id="status-text" class="text-sm font-semibold text-green-600">SERVICIO ACTIVO</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-6 py-8">
+        <!-- Service Control Panel -->
+        <div class="bg-white rounded-xl shadow-2xl p-8 mb-8 fade-in">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">
+                    <i class="fas fa-power-off mr-3 text-red-500"></i>Control de Servicio
+                </h2>
+                <p class="text-gray-600">Activa o desactiva el servicio de pedidos</p>
+            </div>
+            
+            <div class="flex items-center justify-center space-x-8">
+                <div class="text-center">
+                    <div class="text-6xl mb-4" id="service-emoji">🟢</div>
+                    <h3 class="text-xl font-bold mb-4" id="service-title">Servicio Activo</h3>
+                    <label class="switch">
+                        <input type="checkbox" id="service-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="border-l-2 border-gray-300 h-24"></div>
+                <div class="text-center max-w-md">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-2">Estado Actual:</h4>
+                    <p id="service-description" class="text-gray-600">
+                        Los clientes pueden realizar pedidos normalmente
+                    </p>
+                    <div class="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                        <p class="text-sm text-green-700">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            Cuando desactives el servicio, los clientes verán un mensaje de "Temporalmente cerrado"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Management -->
+        <div class="bg-white rounded-xl shadow-2xl p-8 fade-in">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">
+                    <i class="fas fa-eye-slash mr-3 text-purple-500"></i>Gestión de Productos
+                </h2>
+                <p class="text-gray-600">Oculta productos agotados con un solo click</p>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="flex flex-wrap justify-center mb-8 bg-gray-100 rounded-xl p-2">
+                <button class="category-tab active bg-white shadow-md text-gray-800 px-6 py-3 rounded-lg font-semibold transition-all" 
+                        data-category="Hamburguesas">
+                    <i class="fas fa-hamburger mr-2"></i>Hamburguesas
+                </button>
+                <button class="category-tab text-gray-600 hover:text-gray-800 px-6 py-3 rounded-lg font-semibold transition-all" 
+                        data-category="Hot Dogs">
+                    <i class="fas fa-hotdog mr-2"></i>Hot Dogs
+                </button>
+                <button class="category-tab text-gray-600 hover:text-gray-800 px-6 py-3 rounded-lg font-semibold transition-all" 
+                        data-category="Combos">
+                    <i class="fas fa-utensils mr-2"></i>Combos
+                </button>
+                <button class="category-tab text-gray-600 hover:text-gray-800 px-6 py-3 rounded-lg font-semibold transition-all" 
+                        data-category="Extras">
+                    <i class="fas fa-plus-circle mr-2"></i>Extras
+                </button>
+                <button class="category-tab text-gray-600 hover:text-gray-800 px-6 py-3 rounded-lg font-semibold transition-all" 
+                        data-category="Bebidas">
+                    <i class="fas fa-glass mr-2"></i>Bebidas
+                </button>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="products-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl shadow-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold">Mostrar Todo</h3>
+                        <p class="text-green-100 text-sm">Hacer visible todos los productos</p>
+                    </div>
+                    <button onclick="showAllProducts()" class="bg-white/20 hover:bg-white/30 p-3 rounded-full transition-colors">
+                        <i class="fas fa-eye text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-gradient-to-r from-red-500 to-red-600 text-white p-6 rounded-xl shadow-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold">Ocultar Todo</h3>
+                        <p class="text-red-100 text-sm">Ocultar todos los productos</p>
+                    </div>
+                    <button onclick="hideAllProducts()" class="bg-white/20 hover:bg-white/30 p-3 rounded-full transition-colors">
+                        <i class="fas fa-eye-slash text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-xl shadow-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold">Resetear</h3>
+                        <p class="text-blue-100 text-sm">Volver a configuración por defecto</p>
+                    </div>
+                    <button onclick="resetSettings()" class="bg-white/20 hover:bg-white/30 p-3 rounded-full transition-colors">
+                        <i class="fas fa-undo text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-xl z-50 transform translate-x-full transition-transform duration-300">
+        <div class="flex items-center space-x-3">
+            <i class="fas fa-check-circle text-xl"></i>
+            <span id="toast-message" class="font-semibold"></span>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

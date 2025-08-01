@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Envíos - SR & SRA BURGER</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-gold: #FFC72C;
+            --primary-gold-dark: #E5B800;
+            --primary-red: #DA291C;
+            --text-primary: #292929;
+            --text-secondary: #666666;
+            --bg-light: #FFFFFF;
+            --bg-section: #F8F9FA;
+            --border-light: #E9ECEF;
+            --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+            --border-radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #F8F9FA 0%, #FFFFFF 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .card-modern {
+            background: var(--bg-light);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .card-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-dark) 100%);
+            color: var(--text-primary);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .btn-info:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-preparing {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-ready {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-delivering {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .status-delivered {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .order-card {
+            border-left: 4px solid var(--primary-gold);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .order-card:hover {
+            border-left-color: var(--primary-red);
+        }
+
+        .order-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 199, 44, 0.1));
+            transition: width 0.3s ease;
+        }
+
+        .order-card:hover::before {
+            width: 100%;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .floating-stats {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 16px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-hover);
+            border: 1px solid var(--border-light);
+            min-width: 200px;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.33);
+            }
+            80%, 100% {
+                opacity: 0;
+            }
+        }
+
+        .pulse-ring {
+            animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        .order-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+        }
+
+        .customer-info {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #f59e0b;
+        }
+
+        @media (max-width: 768px) {
+            .card-modern {
+                padding: 16px;
+                margin-bottom: 16px;
+            }
+
+            .floating-stats {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                margin: 20px 0;
+                width: 100%;
+            }
+
+            .btn-primary, .btn-success, .btn-info {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Estilos adicionales para botones de confirmación */
+        .btn-confirmed {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            opacity: 0.8;
+            cursor: default;
+        }
+
+        .btn-confirmed:hover {
+            transform: none;
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* Modal overlay */
+        .modal-overlay {
+            backdrop-filter: blur(4px);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Efectos de hover mejorados para botones de acción */
+        .action-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .action-button:hover::before {
+            left: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center shadow-md">
+                        <i class="fas fa-hamburger text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold font-poppins text-gray-900">
+                            SR & SRA <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500">BURGER</span>
+                        </h1>
+                        <p class="text-sm text-gray-500 font-medium">Control de Envíos</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="refreshOrders()" class="btn-primary flex items-center space-x-2">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Actualizar</span>
+                    </button>
+                    <a href="paginaburger.html" class="btn-info flex items-center space-x-2">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Volver al Menú</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="card-modern text-center">
+                <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-clock text-yellow-600 text-xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900" id="pending-count">0</h3>
+                <p class="text-gray-600 font-medium">Pendientes</p>
+            </div>
+            <div class="card-modern text-center">
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-utensils text-blue-600 text-xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900" id="preparing-count">0</h3>
+                <p class="text-gray-600 font-medium">Preparando</p>
+            </div>
+            <div class="card-modern text-center">
+                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-truck text-green-600 text-xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900" id="delivering-count">0</h3>
+                <p class="text-gray-600 font-medium">En Camino</p>
+            </div>
+            <div class="card-modern text-center">
+                <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-check-circle text-gray-600 text-xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900" id="completed-count">0</h3>
+                <p class="text-gray-600 font-medium">Completados</p>
+            </div>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="mb-8">
+            <div class="flex flex-wrap gap-3">
+                <button onclick="filterOrders('all')" class="filter-btn btn-primary active" data-filter="all">
+                    <i class="fas fa-list mr-2"></i>Todos
+                </button>
+                <button onclick="filterOrders('pending')" class="filter-btn btn-info" data-filter="pending">
+                    <i class="fas fa-clock mr-2"></i>Pendientes
+                </button>
+                <button onclick="filterOrders('preparing')" class="filter-btn btn-info" data-filter="preparing">
+                    <i class="fas fa-utensils mr-2"></i>Preparando
+                </button>
+                <button onclick="filterOrders('delivering')" class="filter-btn btn-info" data-filter="delivering">
+                    <i class="fas fa-truck mr-2"></i>En Camino
+                </button>
+                <button onclick="filterOrders('delivered')" class="filter-btn btn-info" data-filter="delivered">
+                    <i class="fas fa-check-circle mr-2"></i>Entregados
+                </button>
+            </div>
+        </div>
+
+        <!-- Orders Container -->
+        <div id="orders-container" class="space-y-6">
+            <!-- Las órdenes se cargarán aquí dinámicamente -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="text-center py-16 hidden">
+            <div class="w-24 h-24 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-inbox text-gray-400 text-3xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-600 mb-2">No hay pedidos</h3>
+            <p class="text-gray-500">Los nuevos pedidos aparecerán aquí automáticamente.</p>
+        </div>
+    </main>
+
+    <!-- Floating Stats (Mobile) -->
+    <div class="floating-stats md:hidden">
+        <div class="flex justify-between items-center">
+            <div class="text-center">
+                <div class="text-lg font-bold text-yellow-600" id="mobile-pending">0</div>
+                <div class="text-xs text-gray-600">Pendientes</div>
+            </div>
+            <div class="text-center">
+                <div class="text-lg font-bold text-blue-600" id="mobile-preparing">0</div>
+                <div class="text-xs text-gray-600">Preparando</div>
+            </div>
+            <div class="text-center">
+                <div class="text-lg font-bold text-green-600" id="mobile-delivering">0</div>
+                <div class="text-xs text-gray-600">En Camino</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Firebase Configuration -->
+    <script type="module" src="js/firebase-config.js"></script>
+    
+    <script>
+        // Variables globales
+        let orders = [];
+        let currentFilter = 'all';
+        let unsubscribeOrders = null;
+
+        // Inicializar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Esperar a que Firebase se configure
+            setTimeout(() => {
+                initializeFirebase();
+            }, 1000);
+        });
+
+        // Inicializar Firebase
+        function initializeFirebase() {
+            if (window.firebaseOrderManager) {
+                console.log('🔥 Conectando con Firebase...');
+                
+                // Configurar listener en tiempo real
+                unsubscribeOrders = window.firebaseOrderManager.onOrdersChange((firebaseOrders) => {
+                    console.log('📥 Pedidos recibidos de Firebase:', firebaseOrders.length);
+                    orders = firebaseOrders;
+                    displayOrders();
+                    updateStats();
+                });
+                
+                showNotification('Conectado a Firebase - Datos en tiempo real', 'success');
+            } else {
+                console.warn('⚠️ Firebase no disponible, usando datos locales');
+                loadOrdersFromLocalStorage();
+                setupAutoRefresh();
+            }
+        }
+
+        // Cargar órdenes desde localStorage (fallback)
+        function loadOrdersFromLocalStorage() {
+            const savedOrders = localStorage.getItem('orders');
+            if (savedOrders) {
+                orders = JSON.parse(savedOrders);
+            } else {
+                // Crear órdenes de ejemplo si no hay datos
+                createSampleOrders();
+            }
+            displayOrders();
+            updateStats();
+        }
+
+        // Guardar órdenes en localStorage (fallback)
+        function saveOrdersToLocalStorage() {
+            localStorage.setItem('orders', JSON.stringify(orders));
+        }
+
+        // Agregar nueva orden (llamada desde paginaburger.html - mantener compatibilidad)
+        function addOrder(orderData) {
+            if (window.firebaseOrderManager) {
+                // Usar Firebase
+                window.firebaseOrderManager.addOrder(orderData)
+                    .then((orderId) => {
+                        console.log('✅ Pedido agregado a Firebase:', orderId);
+                        showNotification('Nuevo pedido recibido!', 'success');
+                        playNotificationSound();
+                    })
+                    .catch((error) => {
+                        console.error('❌ Error al agregar pedido a Firebase:', error);
+                        showNotification('Error al procesar pedido', 'error');
+                    });
+            } else {
+                // Fallback a localStorage
+                const newOrder = {
+                    id: Date.now().toString(),
+                    timestamp: new Date().toISOString(),
+                    status: 'pending',
+                    customer: orderData.customer,
+                    items: orderData.items,
+                    total: orderData.total,
+                    notes: orderData.notes || '',
+                    estimatedTime: calculateEstimatedTime(orderData.items),
+                    confirmed: false,
+                    onWaySent: false,
+                    arrivedSent: false
+                };
+                
+                orders.unshift(newOrder);
+                saveOrdersToLocalStorage();
+                displayOrders();
+                updateStats();
+                showNotification('Nuevo pedido recibido!', 'success');
+                playNotificationSound();
+            }
+        }
+
+        // Mostrar órdenes
+        function displayOrders() {
+            const container = document.getElementById('orders-container');
+            const emptyState = document.getElementById('empty-state');
+            
+            let filteredOrders = orders;
+            if (currentFilter !== 'all') {
+                filteredOrders = orders.filter(order => order.status === currentFilter);
+            }
+            
+            if (filteredOrders.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            
+            emptyState.classList.add('hidden');
+            
+            container.innerHTML = filteredOrders.map(order => createOrderCard(order)).join('');
+        }
+
+        // Crear tarjeta de orden
+        function createOrderCard(order) {
+            const statusInfo = getStatusInfo(order.status);
+            const timeAgo = getTimeAgo(order.timestamp);
+            
+            return `
+                <div class="order-card card-modern" data-order-id="${order.id}" data-status="${order.status}">
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                        <!-- Order Info -->
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <h3 class="text-lg font-bold text-gray-900">Pedido #${order.id.slice(-6)}</h3>
+                                    <span class="status-badge ${statusInfo.class}">${statusInfo.text}</span>
+                                </div>
+                                <div class="text-sm text-gray-500">${timeAgo}</div>
+                            </div>
+                            
+                            <!-- Customer Info -->
+                            <div class="customer-info mb-4">
+                                <div class="flex items-center space-x-3 mb-2">
+                                    <i class="fas fa-user text-yellow-600"></i>
+                                    <span class="font-semibold text-gray-900">${order.customer.name}</span>
+                                </div>
+                                <div class="flex items-center space-x-3 mb-2">
+                                    <i class="fas fa-phone text-yellow-600"></i>
+                                    <span class="text-gray-700">${order.customer.phone}</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-map-marker-alt text-yellow-600"></i>
+                                    <span class="text-gray-700">${order.customer.address}</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Order Items -->
+                            <div class="mb-4">
+                                <h4 class="font-semibold text-gray-900 mb-2">
+                                    <i class="fas fa-shopping-bag text-gray-600 mr-2"></i>
+                                    Productos (${order.items.length} items)
+                                </h4>
+                                <div class="space-y-2">
+                                    ${order.items.map(item => `
+                                        <div class="order-item">
+                                            <div class="flex justify-between items-center">
+                                                <div>
+                                                    <span class="font-medium">${item.quantity}x ${item.name}</span>
+                                                    ${item.customizations ? `<div class="text-sm text-gray-600 mt-1">${item.customizations}</div>` : ''}
+                                                </div>
+                                                <span class="font-semibold text-gray-900">$${item.price}</span>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div class="mt-3 pt-3 border-t border-gray-200">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-lg font-bold text-gray-900">Total:</span>
+                                        <span class="text-xl font-bold text-yellow-600">$${order.total}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            ${order.notes ? `
+                                <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                                    <h5 class="font-semibold text-blue-900 mb-1">
+                                        <i class="fas fa-sticky-note text-blue-600 mr-2"></i>
+                                        Notas especiales:
+                                    </h5>
+                                    <p class="text-blue-800">${order.notes}</p>
+                                </div>
+                            ` : ''}
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="lg:w-64 flex flex-col space-y-3">
+                            ${getActionButtons(order)}
+                            
+                            <!-- Time Info -->
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <div class="text-sm text-gray-600">Tiempo estimado</div>
+                                <div class="font-bold text-gray-900">${order.estimatedTime} min</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Obtener información del estado
+        function getStatusInfo(status) {
+            const statusMap = {
+                'pending': { text: 'Pendiente', class: 'status-pending' },
+                'preparing': { text: 'Preparando', class: 'status-preparing' },
+                'ready': { text: 'Listo', class: 'status-ready' },
+                'delivering': { text: 'En Camino', class: 'status-delivering' },
+                'delivered': { text: 'Entregado', class: 'status-delivered' }
+            };
+            return statusMap[status] || statusMap['pending'];
+        }
+
+        // Obtener botones de acción según el estado
+        function getActionButtons(order) {
+            switch (order.status) {
+                case 'pending':
+                    return `
+                        <button onclick="confirmOrder('${order.id}')" class="btn-success w-full ${order.confirmed ? 'opacity-75' : ''}">
+                            ${order.confirmed ? '<i class="fas fa-check mr-2"></i>Pedido Confirmado ✓' : '<i class="fas fa-whatsapp mr-2"></i>Confirmar Pedido'}
+                        </button>
+                        <button onclick="updateOrderStatus('${order.id}', 'preparing')" class="btn-info w-full">
+                            <i class="fas fa-utensils mr-2"></i>
+                            Empezar a Preparar
+                        </button>
+                        <button onclick="deleteOrder('${order.id}')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full">
+                            <i class="fas fa-trash mr-2"></i>
+                            Eliminar Pedido
+                        </button>
+                    `;
+                case 'preparing':
+                    return `
+                        <button onclick="updateOrderStatus('${order.id}', 'ready')" class="btn-success w-full">
+                            <i class="fas fa-check mr-2"></i>
+                            Marcar como Listo
+                        </button>
+                        <button onclick="deleteOrder('${order.id}')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full">
+                            <i class="fas fa-trash mr-2"></i>
+                            Eliminar Pedido
+                        </button>
+                    `;
+                case 'ready':
+                    return `
+                        <button onclick="sendOnWayMessage('${order.id}')" class="btn-info w-full ${order.onWaySent ? 'opacity-75' : ''}">
+                            ${order.onWaySent ? '<i class="fas fa-check mr-2"></i>En Camino Enviado ✓' : '<i class="fas fa-truck mr-2"></i>Vamos en Camino'}
+                        </button>
+                        <button onclick="updateOrderStatus('${order.id}', 'delivering')" class="btn-success w-full">
+                            <i class="fas fa-motorcycle mr-2"></i>
+                            Marcar "Saliendo"
+                        </button>
+                        <button onclick="deleteOrder('${order.id}')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full">
+                            <i class="fas fa-trash mr-2"></i>
+                            Eliminar Pedido
+                        </button>
+                    `;
+                case 'delivering':
+                    return `
+                        <button onclick="sendArrivedMessage('${order.id}')" class="btn-success w-full ${order.arrivedSent ? 'opacity-75' : ''}">
+                            ${order.arrivedSent ? '<i class="fas fa-check mr-2"></i>Llegada Notificada ✓' : '<i class="fas fa-home mr-2"></i>Notificar Llegada'}
+                        </button>
+                        <button onclick="updateOrderStatus('${order.id}', 'delivered')" class="btn-info w-full">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            Marcar como Entregado
+                        </button>
+                        <button onclick="deleteOrder('${order.id}')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full">
+                            <i class="fas fa-trash mr-2"></i>
+                            Eliminar Pedido
+                        </button>
+                    `;
+                case 'delivered':
+                    return `
+                        <div class="text-center p-3 bg-green-50 border border-green-200 rounded-lg mb-3">
+                            <i class="fas fa-check-circle text-green-600 text-xl mb-2"></i>
+                            <div class="text-green-800 font-semibold">Pedido Completado</div>
+                        </div>
+                        <button onclick="deleteOrder('${order.id}')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full">
+                            <i class="fas fa-trash mr-2"></i>
+                            Eliminar Pedido
+                        </button>
+                    `;
+                default:
+                    return '';
+            }
+        }
+
+        // Contactar cliente por WhatsApp
+        function contactCustomer(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (!order) return;
+            
+            const message = encodeURIComponent('Hola, Te atiende el SrBurger, empezaremos a preparar tu pedido y te avisaré cuando esté listo');
+            const whatsappUrl = `https://wa.me/${order.customer.phone.replace(/\D/g, '')}?text=${message}`;
+            
+            window.open(whatsappUrl, '_blank');
+            showNotification('Abriendo conversación con el cliente', 'success');
+        }
+
+        // Confirmar pedido (nuevo)
+        function confirmOrder(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (!order) return;
+            
+            const message = encodeURIComponent('Hola, soy el Sr Burger 🍔 He recibido tu pedido y empezaré a prepararlo de inmediato. Te avisaré cuando esté listo. ¡Gracias por tu preferencia!');
+            const whatsappUrl = `https://wa.me/${order.customer.phone.replace(/\D/g, '')}?text=${message}`;
+            
+            // Actualizar en Firebase o localStorage
+            if (window.firebaseOrderManager) {
+                window.firebaseOrderManager.updateOrder(orderId, { confirmed: true })
+                    .then(() => {
+                        showNotification('Pedido confirmado - Mensaje enviado al cliente', 'success');
+                    })
+                    .catch((error) => {
+                        console.error('Error al confirmar pedido:', error);
+                        showNotification('Error al confirmar pedido', 'error');
+                    });
+            } else {
+                // Fallback localStorage
+                const orderIndex = orders.findIndex(o => o.id === orderId);
+                if (orderIndex !== -1) {
+                    orders[orderIndex].confirmed = true;
+                    saveOrdersToLocalStorage();
+                    displayOrders();
+                }
+                showNotification('Pedido confirmado - Mensaje enviado al cliente', 'success');
+            }
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Enviar mensaje "Vamos en camino"
+        function sendOnWayMessage(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (!order) return;
+            
+            const message = encodeURIComponent(`Hola ${order.customer.name} 🚗💨 ¡Tu pedido ya va en camino! Tiempo estimado de llegada: ${order.estimatedTime} minutos. Prepara tu pago, ¡ya casi llegamos! 🍔✨`);
+            const whatsappUrl = `https://wa.me/${order.customer.phone.replace(/\D/g, '')}?text=${message}`;
+            
+            // Actualizar en Firebase o localStorage
+            if (window.firebaseOrderManager) {
+                window.firebaseOrderManager.updateOrder(orderId, { onWaySent: true })
+                    .then(() => {
+                        showNotification('Mensaje "En camino" enviado al cliente', 'success');
+                    })
+                    .catch((error) => {
+                        console.error('Error al enviar mensaje:', error);
+                        showNotification('Error al enviar mensaje', 'error');
+                    });
+            } else {
+                // Fallback localStorage
+                const orderIndex = orders.findIndex(o => o.id === orderId);
+                if (orderIndex !== -1) {
+                    orders[orderIndex].onWaySent = true;
+                    saveOrdersToLocalStorage();
+                    displayOrders();
+                }
+                showNotification('Mensaje "En camino" enviado al cliente', 'success');
+            }
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Enviar mensaje "Llegamos"
+        function sendArrivedMessage(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (!order) return;
+            
+            const message = encodeURIComponent(`¡Hola ${order.customer.name}! 🏠 Ya estamos afuera de tu domicilio con tu delicioso pedido de Sr & Sra Burger. ¡Salimos a entregarte! 🍔🎉`);
+            const whatsappUrl = `https://wa.me/${order.customer.phone.replace(/\D/g, '')}?text=${message}`;
+            
+            // Actualizar en Firebase o localStorage
+            if (window.firebaseOrderManager) {
+                window.firebaseOrderManager.updateOrder(orderId, { arrivedSent: true })
+                    .then(() => {
+                        showNotification('Mensaje "Llegamos" enviado al cliente', 'success');
+                    })
+                    .catch((error) => {
+                        console.error('Error al enviar mensaje:', error);
+                        showNotification('Error al enviar mensaje', 'error');
+                    });
+            } else {
+                // Fallback localStorage
+                const orderIndex = orders.findIndex(o => o.id === orderId);
+                if (orderIndex !== -1) {
+                    orders[orderIndex].arrivedSent = true;
+                    saveOrdersToLocalStorage();
+                    displayOrders();
+                }
+                showNotification('Mensaje "Llegamos" enviado al cliente', 'success');
+            }
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Eliminar pedido con confirmación
+        function deleteOrder(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (!order) return;
+            
+            // Crear modal de confirmación
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">¿Eliminar Pedido?</h3>
+                        <p class="text-gray-600 mb-2">¿Estás seguro de que quieres eliminar el pedido #${order.id.slice(-6)}?</p>
+                        <p class="text-sm text-gray-500 mb-6">Cliente: ${order.customer.name} - Total: $${order.total}</p>
+                        <div class="flex space-x-3">
+                            <button onclick="cancelDelete()" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg transition duration-300">
+                                Cancelar
+                            </button>
+                            <button onclick="confirmDelete('${orderId}')" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+                                <i class="fas fa-trash mr-2"></i>
+                                Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        // Cancelar eliminación
+        function cancelDelete() {
+            const modal = document.querySelector('.fixed.inset-0');
+            if (modal) {
+                document.body.removeChild(modal);
+            }
+        }
+
+        // Confirmar eliminación
+        function confirmDelete(orderId) {
+            if (window.firebaseOrderManager) {
+                window.firebaseOrderManager.deleteOrder(orderId)
+                    .then(() => {
+                        const deletedOrder = orders.find(o => o.id === orderId);
+                        showNotification(`Pedido #${deletedOrder?.id?.slice(-6) || 'N/A'} eliminado correctamente`, 'success');
+                    })
+                    .catch((error) => {
+                        console.error('Error al eliminar pedido:', error);
+                        showNotification('Error al eliminar el pedido', 'error');
+                    });
+            } else {
+                // Fallback localStorage
+                const orderIndex = orders.findIndex(o => o.id === orderId);
+                if (orderIndex !== -1) {
+                    const deletedOrder = orders[orderIndex];
+                    orders.splice(orderIndex, 1);
+                    saveOrdersToLocalStorage();
+                    displayOrders();
+                    updateStats();
+                    showNotification(`Pedido #${deletedOrder.id.slice(-6)} eliminado correctamente`, 'success');
+                }
+            }
+            
+            // Cerrar modal
+            cancelDelete();
+        }
+
+        // Actualizar estado de orden
+        function updateOrderStatus(orderId, newStatus) {
+            if (window.firebaseOrderManager) {
+                window.firebaseOrderManager.updateOrder(orderId, { status: newStatus })
+                    .then(() => {
+                        const statusText = getStatusInfo(newStatus).text;
+                        showNotification(`Pedido actualizado a: ${statusText}`, 'success');
+                    })
+                    .catch((error) => {
+                        console.error('Error al actualizar estado:', error);
+                        showNotification('Error al actualizar el pedido', 'error');
+                    });
+            } else {
+                // Fallback localStorage
+                const orderIndex = orders.findIndex(o => o.id === orderId);
+                if (orderIndex === -1) return;
+                
+                const order = orders[orderIndex];
+                order.status = newStatus;
+                
+                saveOrdersToLocalStorage();
+                displayOrders();
+                updateStats();
+                
+                const statusText = getStatusInfo(newStatus).text;
+                showNotification(`Pedido actualizado a: ${statusText}`, 'success');
+            }
+        }
+
+        // Refrescar órdenes
+        function refreshOrders() {
+            showLoading();
+            
+            if (window.firebaseOrderManager) {
+                // Firebase se actualiza automáticamente, solo mostrar feedback
+                setTimeout(() => {
+                    hideLoading();
+                    showNotification('Datos sincronizados con Firebase', 'success');
+                }, 1000);
+            } else {
+                // Recargar desde localStorage
+                setTimeout(() => {
+                    loadOrdersFromLocalStorage();
+                    hideLoading();
+                    showNotification('Órdenes actualizadas', 'success');
+                }, 1000);
+            }
+        }
+
+        // Configurar auto-refresh (solo para localStorage)
+        function setupAutoRefresh() {
+            if (!window.firebaseOrderManager) {
+                setInterval(() => {
+                    loadOrdersFromLocalStorage();
+                }, 30000); // Refresh cada 30 segundos
+            }
+        }
+
+        // Filtrar órdenes
+        function filterOrders(filter) {
+            currentFilter = filter;
+            
+            // Actualizar botones activos
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-info');
+            });
+            
+            const activeBtn = document.querySelector(`[data-filter="${filter}"]`);
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('btn-info');
+            activeBtn.classList.add('btn-primary');
+            
+            displayOrders();
+        }
+
+        // Actualizar estadísticas
+        function updateStats() {
+            const stats = {
+                pending: orders.filter(o => o.status === 'pending').length,
+                preparing: orders.filter(o => o.status === 'preparing').length,
+                delivering: orders.filter(o => o.status === 'delivering').length,
+                delivered: orders.filter(o => o.status === 'delivered').length
+            };
+            
+            // Desktop stats
+            document.getElementById('pending-count').textContent = stats.pending;
+            document.getElementById('preparing-count').textContent = stats.preparing;
+            document.getElementById('delivering-count').textContent = stats.delivering;
+            document.getElementById('completed-count').textContent = stats.delivered;
+            
+            // Mobile stats
+            document.getElementById('mobile-pending').textContent = stats.pending;
+            document.getElementById('mobile-preparing').textContent = stats.preparing;
+            document.getElementById('mobile-delivering').textContent = stats.delivering;
+        }
+
+        // Calcular tiempo estimado
+        function calculateEstimatedTime(items) {
+            // Tiempo base + tiempo por item
+            const baseTime = 15;
+            const timePerItem = 5;
+            return baseTime + (items.length * timePerItem);
+        }
+
+        // Obtener tiempo transcurrido
+        function getTimeAgo(timestamp) {
+            const now = new Date();
+            const orderTime = new Date(timestamp);
+            const diffMs = now - orderTime;
+            const diffMins = Math.floor(diffMs / 60000);
+            
+            if (diffMins < 1) return 'Ahora mismo';
+            if (diffMins < 60) return `Hace ${diffMins} min`;
+            
+            const diffHours = Math.floor(diffMins / 60);
+            if (diffHours < 24) return `Hace ${diffHours}h`;
+            
+            const diffDays = Math.floor(diffHours / 24);
+            return `Hace ${diffDays}d`;
+        }
+
+        // Enviar mensaje de "vamos en camino" (versión anterior - mantenida por compatibilidad)
+        function sendDeliveryMessage(order) {
+            const message = encodeURIComponent(`Hola ${order.customer.name}, ¡Tu pedido ya va en camino! 🚛🍔 Tiempo estimado de llegada: ${order.estimatedTime} minutos. ¡Gracias por elegir Sr & Sra Burger!`);
+            const whatsappUrl = `https://wa.me/${order.customer.phone.replace(/\D/g, '')}?text=${message}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Calcular tiempo estimado
+        function calculateEstimatedTime(items) {
+            // Tiempo base + tiempo por item
+            const baseTime = 15;
+            const timePerItem = 5;
+            return baseTime + (items.length * timePerItem);
+        }
+
+        // Obtener tiempo transcurrido
+        function getTimeAgo(timestamp) {
+            const now = new Date();
+            const orderTime = new Date(timestamp);
+            const diffMs = now - orderTime;
+            const diffMins = Math.floor(diffMs / 60000);
+            
+            if (diffMins < 1) return 'Ahora mismo';
+            if (diffMins < 60) return `Hace ${diffMins} min`;
+            
+            const diffHours = Math.floor(diffMins / 60);
+            if (diffHours < 24) return `Hace ${diffHours}h`;
+            
+            const diffDays = Math.floor(diffHours / 24);
+            return `Hace ${diffDays}d`;
+        }
+
+        // Mostrar notificación
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Mostrar/ocultar loading
+        function showLoading() {
+            document.getElementById('loading-overlay').classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading-overlay').classList.add('hidden');
+        }
+
+        // Reproducir sonido de notificación
+        function playNotificationSound() {
+            // Crear un beep corto
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+
+        // Crear órdenes de ejemplo para testing
+        function createSampleOrders() {
+            const sampleOrders = [
+                {
+                    id: '1704117600000',
+                    timestamp: new Date(Date.now() - 300000).toISOString(), // 5 min ago
+                    status: 'pending',
+                    customer: {
+                        name: 'Juan Pérez',
+                        phone: '9221234567',
+                        address: 'Calle Principal #123, Minatitlán'
+                    },
+                    items: [
+                        { name: 'Hamburguesa Clásica', quantity: 2, price: 140, customizations: 'Sin cebolla, extra queso' },
+                        { name: 'Papas Grandes', quantity: 1, price: 45 }
+                    ],
+                    total: 325,
+                    notes: 'Entregar en la puerta principal',
+                    estimatedTime: 25,
+                    confirmed: false,
+                    onWaySent: false,
+                    arrivedSent: false
+                },
+                {
+                    id: '1704117500000',
+                    timestamp: new Date(Date.now() - 900000).toISOString(), // 15 min ago
+                    status: 'preparing',
+                    customer: {
+                        name: 'María González',
+                        phone: '9227654321',
+                        address: 'Av. Revolución #456, Col. Centro'
+                    },
+                    items: [
+                        { name: 'Combo Supremo', quantity: 1, price: 195 }
+                    ],
+                    total: 195,
+                    notes: '',
+                    estimatedTime: 20,
+                    confirmed: true,
+                    onWaySent: false,
+                    arrivedSent: false
+                }
+            ];
+            
+            orders = sampleOrders;
+            saveOrders();
+        }
+
+        // Función para ser llamada desde paginaburger.html
+        window.addOrderToControl = addOrder;
+    </script>
+</body>
+</html>

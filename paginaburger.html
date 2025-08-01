@@ -1,0 +1,2219 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>SR & SRA BURGER - ¡Hechas con Pasión!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Maps API para autocompletado de direcciones -->
+    <!-- API configurada y activada con tu clave real -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXMg3VpvrOZzQXc95cfxbLLoRqkedJgNg&libraries=places&callback=initializeGoogleMaps"></script>
+    <script>
+        // ✅ Google Maps API activada correctamente
+        console.log('�️ Google Maps API cargada con éxito');
+        console.log('� Autocompletado de direcciones: ACTIVADO');
+        console.log('🎯 Funcionalidades habilitadas: Places API + Mapas');
+    </script>
+    <!-- Estilos personalizados -->
+    <style>
+        :root {
+            --primary-gold: #FFC72C;
+            --primary-gold-dark: #E5B800;
+            --primary-red: #DA291C;
+            --text-primary: #292929;
+            --text-secondary: #666666;
+            --bg-light: #FFFFFF;
+            --bg-section: #F8F9FA;
+            --border-light: #E9ECEF;
+            --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+            --border-radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #F8F9FA 0%, #FFFFFF 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(218, 41, 28, 0.4) 0%, rgba(255, 199, 44, 0.3) 100%), 
+                        url('https://i.imgur.com/TSTuaNr.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .menu-item-img {
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .menu-item-img:hover {
+            transform: scale(1.05);
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-dark) 100%);
+            color: var(--text-primary);
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .card-modern {
+            background: var(--bg-light);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .card-modern:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Animaciones adicionales */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Efectos de texto gradiente */
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Efecto de brillo en hover para botones */
+        .btn-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-shimmer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-shimmer:hover::after {
+            left: 100%;
+        }
+
+        /* Mejoras para dispositivos móviles */
+        @media (max-width: 768px) {
+            .hero-bg h1 {
+                font-size: 3rem;
+                line-height: 1.1;
+            }
+            
+            .btn-primary {
+                padding: 14px 28px;
+                font-size: 15px;
+            }
+        }
+
+        /* Scrollbar personalizado */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-dark) 100%);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--primary-gold-dark) 0%, var(--primary-red) 100%);
+        }
+        
+        /* Advanced animations and micro-interactions */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-3deg); }
+            75% { transform: rotate(3deg); }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .animate-slide-in-left {
+            animation: slideInLeft 0.6s ease-out forwards;
+        }
+        
+        .animate-scale-in {
+            animation: scaleIn 0.4s ease-out forwards;
+        }
+        
+        .animate-wiggle {
+            animation: wiggle 0.5s ease-in-out;
+        }
+        
+        /* Enhanced hover effects */
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Gradient text effects */
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .text-gradient-fire {
+            background: linear-gradient(135deg, #FF4500, #FF6347, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Loading skeleton effects */
+        @keyframes skeleton-loading {
+            0% { background-position: -200px 0; }
+            100% { background-position: calc(200px + 100%) 0; }
+        }
+        
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200px 100%;
+            animation: skeleton-loading 1.5s infinite;
+        }
+        
+        /* Pulse effects for CTAs */
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(255, 199, 44, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 199, 44, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 199, 44, 0); }
+        }
+        
+        /* Enhanced Mobile-first responsive improvements */
+        @media (max-width: 640px) {
+            /* Hero section mobile optimization */
+            .hero-bg {
+                min-height: 70vh;
+                background-attachment: scroll; /* Better performance on mobile */
+            }
+            
+            .hero-bg h1 {
+                font-size: 2.25rem;
+                line-height: 1.1;
+                margin-bottom: 1rem;
+            }
+            
+            .hero-bg p {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+            
+            /* Header improvements */
+            .header-mobile {
+                padding: 0.75rem 1rem;
+            }
+            
+            /* Button improvements */
+            .btn-primary {
+                padding: 14px 28px;
+                font-size: 16px;
+                min-height: 48px;
+                border-radius: 12px;
+            }
+            
+            .card-modern {
+                padding: 12px;
+                margin-bottom: 1rem;
+            }
+            
+            /* Mobile menu grid - una columna para mejor legibilidad */
+            .menu-grid-mobile {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+                padding: 0 1rem;
+            }
+            
+            /* Menu card mobile optimization */
+            .menu-card {
+                margin-bottom: 1rem;
+                border-radius: 16px;
+                overflow: hidden;
+            }
+            
+            .menu-card-mobile {
+                display: flex;
+                flex-direction: row;
+                height: auto;
+                min-height: 120px;
+            }
+            
+            .menu-card-image-mobile {
+                width: 100px;
+                height: 100px;
+                flex-shrink: 0;
+            }
+            
+            .menu-card-content-mobile {
+                flex: 1;
+                padding: 12px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            
+            .menu-card h4 {
+                font-size: 1rem;
+                line-height: 1.3;
+                margin-bottom: 0.25rem;
+                font-weight: 700;
+            }
+            
+            .menu-card .description {
+                font-size: 0.75rem;
+                line-height: 1.3;
+                margin-bottom: 0.5rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            
+            .menu-card .price {
+                font-size: 1.25rem;
+                font-weight: 800;
+                margin-bottom: 0.5rem;
+            }
+            
+            /* Enhanced button visibility on mobile */
+            .add-to-cart-btn, .customize-btn, .choose-combo-btn {
+                font-size: 14px !important;
+                padding: 10px 16px !important;
+                font-weight: 700 !important;
+                border-radius: 8px !important;
+                min-height: 40px !important;
+                width: 100% !important;
+            }
+            
+            /* Badges inline para móviles - responsivos */
+            .menu-card-mobile .inline-block {
+                font-size: 0.65rem !important;
+                padding: 0.2rem 0.4rem !important;
+                margin: 0.1rem 0.2rem 0.1rem 0 !important;
+                border-radius: 0.5rem !important;
+                white-space: nowrap;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            }
+            
+            /* Cart button mobile */
+            .cart-btn-mobile {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 1000;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            }
+            
+            /* Category headers mobile */
+            .category-header-mobile h3 {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .category-header-mobile p {
+                font-size: 0.875rem;
+                margin-bottom: 1rem;
+            }
+            
+            /* Container padding mobile */
+            .container-mobile {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            /* Touch-friendly interactions */
+            button, input[type="button"], input[type="submit"], .btn {
+                min-height: 44px;
+                min-width: 44px;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            /* Sticky header on mobile */
+            .sticky-header-mobile {
+                position: sticky;
+                top: 0;
+                z-index: 50;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+                padding: 0.75rem 1rem;
+            }
+            
+            /* Mobile modal improvements */
+            .modal-mobile {
+                margin: 0;
+                max-height: 100vh;
+                border-radius: 16px 16px 0 0;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                transform: translateY(100%);
+                transition: transform 0.3s ease-out;
+            }
+            
+            .modal-mobile.show {
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Tablet responsive */
+            .hero-bg h1 {
+                font-size: 3rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .card-modern {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            /* Desktop responsive */
+            .container {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 2rem;
+            }
+        }
+        
+        /* Enhanced Loading states with better visibility */
+        .loading {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #10b981, #059669) !important;
+            color: white !important;
+        }
+        
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: loading-sweep 1s infinite;
+            z-index: 1;
+        }
+        
+        .loading * {
+            position: relative;
+            z-index: 2;
+        }
+        
+        @keyframes loading-sweep {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        /* Success state for buttons */
+        .success-state {
+            background: linear-gradient(135deg, #10b981, #059669) !important;
+            color: white !important;
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4) !important;
+        }
+        
+        /* Enhanced button animations */
+        .btn-bounce {
+            animation: btn-bounce 0.6s ease-out;
+        }
+        
+        @keyframes btn-bounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Better spinner animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Enhanced notification system */
+        .notification-enter {
+            animation: notification-slide-in 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        @keyframes notification-slide-in {
+            0% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Enhanced focus states for accessibility */
+        button:focus,
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 2px solid var(--primary-gold);
+            outline-offset: 2px;
+        }
+        
+        /* Dark mode support (optional) */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #f9fafb;
+                --text-secondary: #d1d5db;
+                --bg-light: #1f2937;
+                --bg-section: #111827;
+            }
+        }
+        
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Line clamp utility */
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        /* Enhanced shadow utilities */
+        .shadow-glow {
+            box-shadow: 0 0 20px rgba(255, 199, 44, 0.3);
+        }
+        
+        .shadow-glow-hover:hover {
+            box-shadow: 0 0 30px rgba(255, 199, 44, 0.5);
+        }
+        
+        .cart-item-enter {
+            animation: cart-item-in 0.3s ease-out forwards;
+        }
+        @keyframes cart-item-in {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .modal-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .modal-scrollbar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        .modal-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .nosotros-img {
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
+            padding: 1rem;
+        }
+        .bg-pattern {
+            background-image: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                            radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                            radial-gradient(circle at 40% 40%, rgba(255,255,255,0.05) 0%, transparent 50%);
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .shimmer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        /* Google Maps Address Autocomplete Styles */
+        .pac-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+            font-family: 'Inter', sans-serif;
+            z-index: 1000;
+        }
+        
+        .pac-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f3f4f6;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .pac-item:hover {
+            background-color: #f9fafb;
+        }
+        
+        .pac-item-selected {
+            background-color: #fef3c7 !important;
+        }
+        
+        .pac-item-query {
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        .pac-matched {
+            font-weight: 700;
+            color: #f59e0b;
+        }
+        
+        .pac-icon {
+            margin-right: 8px;
+        }
+        
+        /* Address input focus state */
+        #address-input:focus {
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+        }
+        
+        /* Mini map container */
+        #mini-map {
+            border: 2px solid #e5e7eb;
+            transition: border-color 0.3s ease;
+        }
+        
+        #mini-map:hover {
+            border-color: #f59e0b;
+        }
+        
+        /* Map container animations */
+        #map-container {
+            animation: slideInDown 0.3s ease-out;
+        }
+        
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Estilos para autocompletado simulado */
+        #address-suggestions {
+            max-height: 200px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        
+        #address-suggestions::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        #address-suggestions::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        #address-suggestions::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 2px;
+        }
+        
+        .suggestion-item {
+            transition: all 0.2s ease;
+        }
+        
+        .suggestion-item:hover {
+            background-color: #f9fafb !important;
+            transform: translateX(2px);
+        }
+        
+        /* Animación para el contenedor del mapa */
+        #map-container {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        #map-container.hidden {
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        #map-container:not(.hidden) {
+            opacity: 1;
+            max-height: 500px;
+        }
+        
+        /* Estilos para resaltar coincidencias */
+        mark {
+            background-color: #fef3c7;
+            color: #92400e;
+            padding: 1px 2px;
+            border-radius: 2px;
+        }
+
+        /* Mobile responsive adjustments for maps */
+        @media (max-width: 640px) {
+            .pac-container {
+                max-width: calc(100vw - 32px);
+                margin: 0 16px;
+            }
+            
+            #mini-map {
+                height: 120px;
+            }
+        }
+
+        /* Animaciones premium para promociones - Nivel McDonald's */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer-sweep {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            100% { transform: translateX(200%) skewX(-15deg); }
+        }
+
+        .shimmer-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer-sweep 3s infinite;
+        }
+
+        @keyframes pulse-glow-premium {
+            0% { 
+                box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.7);
+                transform: scale(1);
+            }
+            70% { 
+                box-shadow: 0 0 0 15px rgba(255, 69, 0, 0);
+                transform: scale(1.02);
+            }
+            100% { 
+                box-shadow: 0 0 0 0 rgba(255, 69, 0, 0);
+                transform: scale(1);
+            }
+        }
+
+        .pulse-glow-premium {
+            animation: pulse-glow-premium 2s infinite;
+        }
+
+        @keyframes wiggle-premium {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-5deg) scale(1.05); }
+            75% { transform: rotate(5deg) scale(1.05); }
+        }
+
+        .animate-wiggle-premium {
+            animation: wiggle-premium 1s ease-in-out;
+        }
+
+        @keyframes bounce-in-scale {
+            0% { 
+                opacity: 0;
+                transform: scale(0.3) translateY(100px);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1) translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .animate-bounce-in {
+            animation: bounce-in-scale 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .gradient-animate {
+            background-size: 200% 200%;
+            animation: gradient-shift 4s ease infinite;
+        }
+
+        @keyframes scale-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .animate-scale-bounce {
+            animation: scale-bounce 2s ease-in-out infinite;
+        }
+
+        /* Efectos de hover premium para las tarjetas de promociones */
+        .promo-card-premium {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .promo-card-premium:hover {
+            transform: translateY(-8px) scale(1.03) rotateX(5deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Efectos de texto brillante */
+        @keyframes text-glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6); }
+        }
+
+        .text-glow {
+            animation: text-glow 2s ease-in-out infinite;
+        }
+
+        /* Efectos de partículas de fondo */
+        @keyframes particle-float {
+            0% { 
+                opacity: 0;
+                transform: translateY(100px) scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(50px) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(0) scale(0);
+            }
+        }
+
+        .particle-effect {
+            animation: particle-float 6s ease-in-out infinite;
+        }
+
+        /* Responsive para promociones premium */
+        @media (max-width: 640px) {
+            .promo-card-premium:hover {
+                transform: translateY(-4px) scale(1.02);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            }
+            
+            /* Optimizaciones móviles para las promociones */
+            .mobile-promo-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 1rem !important;
+            }
+            
+            .mobile-promo-card {
+                padding: 1rem !important;
+                font-size: 0.875rem !important;
+            }
+        }
+
+        /* Estilos para tabs móviles de promociones */
+        .mobile-promo-tab {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+        }
+
+        .mobile-promo-tab.active {
+            background: linear-gradient(135deg, #ef4444, #f97316) !important;
+            color: white !important;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .mobile-promo-tab:not(.active):hover {
+            background: #e5e7eb !important;
+            transform: translateY(-1px);
+        }
+
+        .mobile-promo-content {
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        .mobile-promo-content.hidden {
+            display: none;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mejorar scrolling horizontal en tabs */
+        .mobile-promo-tab::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Efectos para las tarjetas compactas móviles */
+        @media (max-width: 768px) {
+            .promo-compact-card {
+                transition: all 0.2s ease;
+            }
+
+            .promo-compact-card:active {
+                transform: scale(0.98);
+                background-color: #f8fafc;
+            }
+            
+            /* Badges inline para móviles - mejorados */
+            .menu-card-content-mobile .mb-2 span {
+                font-size: 0.7rem !important;
+                padding: 0.25rem 0.5rem !important;
+                margin-right: 0.25rem !important;
+                margin-bottom: 0.25rem !important;
+                display: inline-block;
+                line-height: 1.2;
+            }
+            
+            /* Ajustes específicos para badges en móvil */
+            .menu-card-mobile {
+                min-height: 130px !important;
+            }
+            
+            .menu-card-content-mobile {
+                padding: 0.75rem !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header id="inicio" class="glass-effect shadow-lg sticky top-0 z-50 border-b border-white/20">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-24">
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <div class="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center shadow-md">
+                        <i class="fas fa-hamburger text-white text-sm sm:text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <a href="#inicio" class="text-lg sm:text-3xl font-bold font-poppins text-gray-900">
+                            SR & SRA <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500">BURGER</span>
+                        </a>
+                        <span class="text-xs sm:text-sm text-gray-500 font-medium hidden sm:block">Minatitlán, Veracruz • Abierto ahora</span>
+                    </div>
+                </div>
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <a href="#menu" class="text-gray-700 hover:text-yellow-600 transition-all duration-300 font-medium relative group">
+                        Menú
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-500 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#nosotros" class="text-gray-700 hover:text-yellow-600 transition-all duration-300 font-medium relative group">
+                        Nosotros
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-500 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#contacto" class="text-gray-700 hover:text-yellow-600 transition-all duration-300 font-medium relative group">
+                        Contacto
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-500 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <button id="promotions-btn" class="relative overflow-hidden bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 text-white px-6 py-3 rounded-2xl hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 transition-all duration-300 font-black shadow-xl hover:shadow-2xl transform hover:-translate-y-1 hover:scale-105 pulse-glow">
+                        <span class="relative z-10 flex items-center space-x-2">
+                            <i class="fas fa-fire animate-bounce"></i>
+                            <span>OFERTAS HOT</span>
+                            <div class="bg-white text-red-600 px-2 py-1 rounded-full text-xs font-black animate-pulse">NUEVO</div>
+                        </span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                    </button>
+                </nav>
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <a href="controldeenvios.html" target="_blank" class="hidden lg:flex items-center space-x-2 text-gray-500 hover:text-gray-700 transition-all duration-300 text-sm px-3 py-2 rounded-lg hover:bg-gray-100" title="Control de Envíos - Solo Admin">
+                        <i class="fas fa-clipboard-list text-sm"></i>
+                        <span class="text-xs">Control</span>
+                    </a>
+                    <button id="open-cart-btn" class="btn-primary flex items-center space-x-2 sm:space-x-3 shadow-lg text-sm sm:text-base px-3 py-2 sm:px-6 sm:py-3">
+                        <i class="fas fa-shopping-cart text-sm sm:text-lg"></i>
+                        <span class="hidden sm:inline font-semibold">Carrito</span>
+                        <span id="cart-count" class="bg-white text-yellow-600 text-xs sm:text-sm font-bold rounded-full h-5 w-5 sm:h-6 sm:w-6 flex items-center justify-center shadow-sm">0</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 sm:p-3 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors">
+                        <i class="fas fa-bars text-gray-700 text-sm sm:text-base"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú móvil deslizable -->
+    <div id="mobile-menu" class="fixed top-0 left-0 h-full w-80 bg-white shadow-2xl transform -translate-x-full transition-transform duration-300 z-50 lg:hidden">
+        <div class="p-6">
+            <!-- Header del menú móvil -->
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-hamburger text-white"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold font-poppins text-gray-900">SR & SRA <span class="text-yellow-600">BURGER</span></h2>
+                    </div>
+                </div>
+                <button id="close-mobile-menu" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors">
+                    <i class="fas fa-times text-gray-700"></i>
+                </button>
+            </div>
+
+            <!-- Navegación del menú móvil -->
+            <nav class="space-y-4">
+                <a href="#menu" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group">
+                    <i class="fas fa-utensils text-gray-600 group-hover:text-yellow-600"></i>
+                    <span class="text-gray-800 font-medium group-hover:text-yellow-600">Menú</span>
+                </a>
+                <a href="#nosotros" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group">
+                    <i class="fas fa-users text-gray-600 group-hover:text-yellow-600"></i>
+                    <span class="text-gray-800 font-medium group-hover:text-yellow-600">Nosotros</span>
+                </a>
+                <a href="#contacto" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group">
+                    <i class="fas fa-phone text-gray-600 group-hover:text-yellow-600"></i>
+                    <span class="text-gray-800 font-medium group-hover:text-yellow-600">Contacto</span>
+                </a>
+                
+                <!-- Botón de ofertas en menú móvil -->
+                <button id="mobile-promotions-btn" class="w-full flex items-center space-x-3 p-3 rounded-xl bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 text-white hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 transition-all transform hover:scale-105">
+                    <i class="fas fa-fire animate-bounce"></i>
+                    <span class="font-bold">OFERTAS HOT</span>
+                    <div class="bg-white text-red-600 px-2 py-1 rounded-full text-xs font-black animate-pulse ml-auto">NUEVO</div>
+                </button>
+
+            </nav>
+
+            <!-- Información de contacto en el menú móvil -->
+            <div class="mt-8 pt-8 border-t border-gray-200">
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-3 text-sm text-gray-600">
+                        <i class="fas fa-clock"></i>
+                        <span>Entrega: 25-35 min</span>
+                    </div>
+                    <div class="flex items-center space-x-3 text-sm text-gray-600">
+                        <i class="fas fa-phone"></i>
+                        <span>WhatsApp: +52 922 159 3688</span>
+                    </div>
+                    <div class="flex items-center space-x-3 text-sm text-gray-600">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Cobertura: Toda la ciudad de Minatitlán</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay para el menú móvil -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+
+    <section class="hero-bg text-white min-h-[70vh] sm:min-h-[80vh] flex items-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/10"></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold font-poppins leading-tight mb-4 sm:mb-6 text-white drop-shadow-2xl">
+                    Hechas con <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-400">Pasión</span>,<br>
+                    Devoradas con <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-400">Amor</span>.
+                </h1>
+                <p class="text-base sm:text-xl md:text-2xl text-gray-200 mb-6 sm:mb-10 max-w-3xl mx-auto font-medium leading-relaxed px-4">
+                    La mejor hamburguesa que probarás, creada por una pareja con un sueño y pasión por la excelencia culinaria.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
+                    <a href="#menu" class="btn-primary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 font-bold transform hover:scale-105 shadow-2xl w-full sm:w-auto">
+                        <i class="fas fa-utensils mr-2"></i>
+                        EXPLORAR MENÚ
+                    </a>
+                    <a href="#nosotros" class="bg-white/10 backdrop-blur-sm text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:bg-white/20 transition-all duration-300 border border-white/30 w-full sm:w-auto">
+                        <i class="fas fa-play mr-2"></i>
+                        Ver Historia
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Elementos decorativos flotantes -->
+        <div class="absolute top-20 left-10 w-20 h-20 bg-yellow-400/20 rounded-full blur-xl animate-pulse hidden sm:block"></div>
+        <div class="absolute bottom-20 right-10 w-32 h-32 bg-orange-400/20 rounded-full blur-xl animate-pulse hidden sm:block" style="animation-delay: 1s;"></div>
+        <div class="absolute top-1/2 left-1/4 w-4 h-4 bg-white/50 rounded-full animate-bounce hidden sm:block"></div>
+        <div class="absolute top-1/3 right-1/4 w-6 h-6 bg-yellow-300/60 rounded-full animate-bounce hidden sm:block" style="animation-delay: 0.5s;"></div>
+    </section>
+
+    <!-- Mensaje de envío gratis -->
+    <section class="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 py-8 shadow-xl relative overflow-hidden">
+        <div class="absolute inset-0 bg-pattern opacity-20"></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex items-center justify-center">
+                <div class="card-modern bg-white/95 backdrop-blur-sm rounded-2xl px-8 py-6 border-2 border-white/50 shadow-2xl">
+                    <div class="flex items-center justify-center space-x-6">
+                        <div class="bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl p-4 shadow-lg animate-bounce">
+                            <i class="fas fa-truck text-white text-3xl"></i>
+                        </div>
+                        <div class="text-center">
+                            <h3 class="text-gray-800 font-extrabold text-2xl md:text-3xl mb-2">
+                                🚚 ENVÍO GRATIS
+                            </h3>
+                            <div class="flex items-center justify-center space-x-3">
+                                <span class="text-gray-600 font-semibold text-lg">en compras superiores a</span>
+                                <span class="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-full text-xl font-bold shadow-lg animate-pulse">
+                                    $500
+                                </span>
+                            </div>
+                            <p class="text-gray-500 text-sm font-medium mt-2">¡Aprovecha esta increíble oferta!</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl p-4 shadow-lg animate-bounce" style="animation-delay: 0.3s;">
+                            <i class="fas fa-gift text-white text-3xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Elementos decorativos mejorados -->
+        <div class="absolute top-4 left-8 text-white/30 text-5xl animate-pulse">�</div>
+        <div class="absolute bottom-4 right-8 text-white/30 text-5xl animate-pulse" style="animation-delay: 1s;">�</div>
+        <div class="absolute top-1/2 left-8 text-white/20 text-3xl animate-bounce">✨</div>
+        <div class="absolute top-1/2 right-8 text-white/20 text-3xl animate-bounce" style="animation-delay: 0.5s;">💫</div>
+    </section>
+
+    <main id="menu" class="py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-2 bg-yellow-100 text-yellow-800 rounded-full text-sm font-semibold mb-4">
+                    MENÚ GOURMET
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold font-poppins text-gray-900 mb-6">
+                    Nuestras <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500">Deliciosas</span> Creaciones
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    Cada hamburguesa es una obra maestra culinaria, preparada con ingredientes frescos y premium para ofrecerte una experiencia gastronómica única.
+                </p>
+            </div>
+            <div id="menu-categories" class="space-y-16"></div>
+        </div>
+    </main>
+
+    <section id="nosotros" class="py-20 bg-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-50/50 to-orange-50/50"></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2">
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-3xl blur opacity-20"></div>
+                        <img src="https://i.imgur.com/mCzOds3.jpg" alt="Logo de Sr. y Sra. Burger" 
+                             class="relative w-full h-auto max-w-md mx-auto rounded-2xl shadow-2xl">
+                    </div>
+                </div>
+                <div class="lg:w-1/2 text-center lg:text-left">
+                    <span class="inline-block px-4 py-2 bg-yellow-100 text-yellow-800 rounded-full text-sm font-semibold mb-4">
+                        NUESTRA HISTORIA
+                    </span>
+                    <h2 class="text-4xl md:text-5xl font-bold font-poppins mb-6 text-gray-900">
+                        Una Historia de <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500">Amor</span> y <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500">Sabor</span>
+                    </h2>
+                    <div class="space-y-4 text-lg text-gray-600 leading-relaxed">
+                        <p>
+                            Bienvenidos a <strong class="text-gray-900">SR & SRA BURGER</strong>, donde cada hamburguesa es hecha con pasión y amor. Somos una pareja trabajando juntos para lograr nuestros sueños, trayéndote el mejor sabor en cada bocado.
+                        </p>
+                        <p>
+                            Más que solo comida, ofrecemos una experiencia deliciosa que nace de nuestro esfuerzo y dedicación. Gracias por apoyarnos y ser parte de nuestra historia.
+                        </p>
+                    </div>
+                    <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                        <a href="#nosotros" class="btn-primary inline-flex items-center justify-center">
+                            <i class="fas fa-heart mr-2"></i>
+                            Conoce Más
+                        </a>
+                        <a href="#contacto" class="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-full hover:border-yellow-500 hover:text-yellow-600 transition-all duration-300 font-semibold inline-flex items-center justify-center">
+                            <i class="fas fa-phone mr-2"></i>
+                            Contáctanos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-12 sm:py-20 bg-gradient-to-b from-gray-800 to-gray-900">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8 sm:mb-16">
+                <span class="inline-block px-4 py-2 bg-yellow-100 text-yellow-800 rounded-full text-sm font-semibold mb-4">
+                    CONTÁCTANOS
+                </span>
+                <h2 class="text-2xl sm:text-4xl md:text-5xl font-bold font-poppins mb-4 sm:mb-6 text-white">
+                    ¡Haz tu <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">Pedido</span> y Síguenos!
+                </h2>
+                <p class="text-base sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
+                    Estamos aquí para servirte con la mejor atención. Contáctanos para hacer tu pedido o resolver cualquier consulta.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-6 max-w-6xl mx-auto">
+                <a href="tel:9221593688" class="card-modern text-center group hover:bg-yellow-50 transition-all duration-300 min-h-[120px] flex flex-col justify-center">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-phone text-white text-lg sm:text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white mb-1 sm:mb-2 text-sm sm:text-base">Teléfono</h3>
+                    <p class="text-white font-semibold text-xs sm:text-sm">922 159 3688</p>
+                </a>
+                
+                <a href="https://wa.me/5219221593688" target="_blank" class="card-modern text-center group hover:bg-green-50 transition-all duration-300 min-h-[120px] flex flex-col justify-center">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-green-400 to-green-500 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <i class="fab fa-whatsapp text-white text-lg sm:text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white mb-1 sm:mb-2 text-sm sm:text-base">WhatsApp</h3>
+                    <p class="text-white font-semibold text-xs sm:text-sm">Mensaje directo</p>
+                </a>
+                
+                <a href="https://www.facebook.com/profile.php?id=61570144580225" target="_blank" class="card-modern text-center group hover:bg-blue-50 transition-all duration-300 min-h-[120px] flex flex-col justify-center">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <i class="fab fa-facebook text-white text-lg sm:text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white mb-1 sm:mb-2 text-sm sm:text-base">Facebook</h3>
+                    <p class="text-white font-semibold text-xs sm:text-sm">Síguenos</p>
+                </a>
+                
+                <a href="https://www.instagram.com/srysraburger/" target="_blank" class="card-modern text-center group hover:bg-pink-50 transition-all duration-300 min-h-[120px] flex flex-col justify-center">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <i class="fab fa-instagram text-white text-lg sm:text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white mb-1 sm:mb-2 text-sm sm:text-base">Instagram</h3>
+                    <p class="text-white font-semibold text-xs sm:text-sm">@srysraburger</p>
+                </a>
+                
+                <a href="https://www.tiktok.com/@srsra.burger" target="_blank" class="card-modern text-center group hover:bg-gray-50 transition-all duration-300 min-h-[120px] flex flex-col justify-center sm:col-span-2 lg:col-span-1">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-gray-800 to-black rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <i class="fab fa-tiktok text-white text-lg sm:text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white mb-1 sm:mb-2 text-sm sm:text-base">TikTok</h3>
+                    <p class="text-white font-semibold text-xs sm:text-sm">@srsra.burger</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-4 mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <i class="fas fa-hamburger text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold font-poppins">
+                            SR & SRA <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-400">BURGER</span>
+                        </h3>
+                        <p class="text-gray-400 text-sm">Minatitlán, Veracruz</p>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 pt-6">
+                    <p class="text-gray-400">
+                        © <span id="year"></span> Sr. y Sra. Burger. Todos los derechos reservados. 
+                        <span class="text-yellow-400">Hecho con ❤️ para ti.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col">
+        <div class="flex items-center justify-between p-4 border-b"><h3 class="text-xl font-bold font-poppins">Tu Pedido</h3><button id="close-cart-btn" class="text-gray-500 hover:text-gray-800"><i class="fas fa-times text-2xl"></i></button></div>
+        <div id="cart-items" class="flex-grow p-4 overflow-y-auto modal-scrollbar"><p id="cart-empty-msg" class="text-gray-500 text-center mt-8">Tu carrito está vacío.</p></div>
+        <div class="p-4 border-t bg-gray-50">
+            <div class="flex justify-between items-center mb-4"><span class="text-lg font-semibold">Total:</span><span id="cart-total" class="text-2xl font-bold text-[#FFB300]">$0.00</span></div>
+            <button id="checkout-btn" class="w-full bg-[#FFB300] text-[#212121] font-bold py-3 rounded-lg hover:bg-[#FFA000] transition duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed">Finalizar Pedido</button>
+        </div>
+    </div>
+    <div id="cart-overlay" class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 hidden"></div>
+
+    <div id="combo-modal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg mx-auto flex flex-col" style="max-height: 90vh;">
+            <div class="p-4 border-b"><h3 id="combo-modal-title" class="text-2xl font-bold font-poppins text-center">Configura tu Combo</h3></div>
+            <div id="combo-modal-body" class="p-6 overflow-y-auto modal-scrollbar space-y-6"></div>
+            <div class="p-4 border-t bg-gray-50 mt-auto">
+                 <div class="flex justify-between items-center mb-4"><span class="text-lg font-semibold">Total del Combo:</span><span id="combo-modal-total" class="text-2xl font-bold text-[#FFB300]">$0.00</span></div>
+                <button id="add-combo-to-cart-btn" class="w-full bg-[#FFB300] text-[#212121] font-bold py-3 rounded-lg hover:bg-[#FFA000] transition duration-300">Agregar Combo al Carrito</button>
+                <button id="close-combo-modal-btn" class="w-full text-center text-gray-600 mt-2 hover:text-black">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="customization-modal" class="fixed inset-0 bg-black/60 z-[60] hidden items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-auto flex flex-col" style="max-height: 90vh;">
+            <div class="p-4 border-b"><h3 id="custom-modal-title" class="text-2xl font-bold font-poppins text-center">Personaliza tu Artículo</h3></div>
+            <div id="custom-modal-body" class="p-6 overflow-y-auto modal-scrollbar">
+                <p class="font-semibold mb-4">🔥 ¿Quieres hacer tu hamburguesa aún más irresistible?</p>
+                <div id="toppings-container" class="space-y-3"></div>
+                
+                <hr class="my-6">
+                <p class="font-semibold mb-4">🍟 ¿La quieres con el acompañamiento perfecto?</p>
+                <div id="fries-container" class="space-y-3">
+                    <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-200">
+                        <input type="checkbox" id="add-fries-checkbox" class="form-checkbox h-5 w-5 text-[#FFB300] rounded focus:ring-[#FFA000]">
+                        <div class="ml-3 mr-3">
+                            <img src="https://i.imgur.com/mnmz0uG_d.jpeg?maxwidth=520&shape=thumb&fidelity=high" alt="Papas" class="w-16 h-12 object-cover rounded-md shadow-sm">
+                        </div>
+                        <div class="flex-grow">
+                            <span class="font-semibold text-gray-800">¿La quieres con papas?</span>
+                            <div class="text-sm text-gray-600">Solo 20 más</div>
+                        </div>
+                    </label>
+                    <div id="fries-choice-container" class="pl-8 space-y-3 hidden">
+                        <label class="flex items-center cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-all duration-200">
+                            <input type="radio" name="fries-type" value="Gajo" class="form-radio text-[#FFB300]" checked>
+                            <div class="ml-3 mr-3">
+                                <img src="https://imgur.com/0n0jSEh.jpg" alt="Papas Gajo" class="w-12 h-8 object-cover rounded shadow-sm">
+                            </div>
+                            <span class="font-medium">Papas Gajo</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-all duration-200">
+                            <input type="radio" name="fries-type" value="Francesas" class="form-radio text-[#FFB300]">
+                            <div class="ml-3 mr-3">
+                                <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=300&h=200&fit=crop&crop=center" alt="Papas Francesas" class="w-12 h-8 object-cover rounded shadow-sm">
+                            </div>
+                            <span class="font-medium">Papas a la Francesa</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-all duration-200">
+                            <input type="radio" name="fries-type" value="Crispy" class="form-radio text-[#FFB300]">
+                            <div class="ml-3 mr-3">
+                                <img src="https://imgur.com/4bflLWp.jpg" alt="Papas Crispy" class="w-12 h-8 object-cover rounded shadow-sm">
+                            </div>
+                            <span class="font-medium">Papas Crispy</span>
+                        </label>
+                    </div>
+                    
+                    <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-200">
+                        <input type="checkbox" id="add-onion-rings-checkbox" class="form-checkbox h-5 w-5 text-[#FFB300] rounded focus:ring-[#FFA000]">
+                        <div class="ml-3 mr-3">
+                            <img src="https://i.imgur.com/rK8wjox_d.jpeg?maxwidth=520&shape=thumb&fidelity=high" alt="Aros de Cebolla" class="w-16 h-12 object-cover rounded-md shadow-sm">
+                        </div>
+                        <div class="flex-grow">
+                            <span class="font-semibold text-gray-800">¿Te gustan los aros de cebolla crujientes?</span>
+                            <div class="text-sm text-gray-600">Solo 25 más por 5 piezas doradas</div>
+                        </div>
+                    </label>
+                </div>
+                
+                <hr class="my-6">
+                <p class="font-semibold mb-4">🥤 ¿Algo más para completar tu experiencia?</p>
+                <div id="menu-extras-container" class="space-y-3"></div>
+            </div>
+            <div class="p-4 border-t bg-gray-50 mt-auto">
+                <div class="flex justify-between items-center mb-4"><span class="text-lg font-semibold">Total del item:</span><span id="custom-modal-total" class="text-2xl font-bold text-[#FFB300]">$0.00</span></div>
+                <button id="add-custom-to-cart-btn" class="w-full bg-[#FFB300] text-[#212121] font-bold py-3 rounded-lg hover:bg-[#FFA000] transition duration-300">Confirmar Personalización</button>
+                <button id="close-custom-modal-btn" class="w-full text-center text-gray-600 mt-2 hover:text-black">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="checkout-modal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-2">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl mx-auto relative flex flex-col" style="max-height: 95vh;">
+            <button id="close-modal-btn" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 z-10 bg-white rounded-full w-7 h-7 flex items-center justify-center shadow-md"><i class="fas fa-times"></i></button>
+            
+            <!-- Header compacto -->
+            <div class="p-4 pb-3 border-b bg-white rounded-t-lg">
+                <h3 class="text-xl font-bold font-poppins text-center">Confirmar Pedido</h3>
+            </div>
+            
+            <!-- Contenido scrolleable -->
+            <div class="overflow-y-auto modal-scrollbar flex-1 p-4">
+                <!-- Resumen del pedido compacto en la parte superior -->
+                <div id="order-summary" class="mb-4 p-3 bg-gray-50 rounded-lg border"></div>
+                
+                <!-- Layout en dos columnas para mejor uso del espacio -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <!-- Columna izquierda: Información del cliente y entrega -->
+                    <div class="space-y-4">
+                        <!-- Información del cliente -->
+                        <div class="space-y-3">
+                            <h4 class="font-semibold text-base flex items-center">
+                                <i class="fas fa-user text-blue-600 mr-2"></i>Información del Cliente
+                            </h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <label for="customer-name" class="block text-sm font-medium mb-1">Nombre:</label>
+                                    <input type="text" id="customer-name" placeholder="Tu nombre completo" class="w-full p-2 border rounded-md text-sm focus:ring-1 focus:ring-yellow-300 focus:border-yellow-400">
+                                </div>
+                                <div>
+                                    <label for="customer-phone" class="block text-sm font-medium mb-1">Teléfono:</label>
+                                    <input type="tel" id="customer-phone" placeholder="922 123 4567" class="w-full p-2 border rounded-md text-sm focus:ring-1 focus:ring-yellow-300 focus:border-yellow-400">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tipo de entrega -->
+                        <div>
+                            <h4 class="font-semibold text-base flex items-center mb-3">
+                                <i class="fas fa-truck text-orange-600 mr-2"></i>Tipo de entrega
+                            </h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center p-2 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-200 border-green-300 bg-green-50">
+                                    <input type="radio" name="delivery-type" value="pickup" class="form-radio text-[#FFB300]" checked>
+                                    <div class="ml-2 flex-1">
+                                        <div class="font-medium text-gray-800 text-sm">🏪 Recoger en local</div>
+                                        <div class="text-xs text-green-600 font-semibold">Gratis</div>
+                                    </div>
+                                </label>
+                                <label class="flex items-center p-2 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-200">
+                                    <input type="radio" name="delivery-type" value="delivery" class="form-radio text-[#FFB300]">
+                                    <div class="ml-2 flex-1">
+                                        <div class="font-medium text-gray-800 text-sm">🚗 Envío a domicilio</div>
+                                        <div class="text-xs text-[#FFB300] font-semibold">$40 base</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- Dirección (cuando se selecciona delivery) -->
+                        <div id="location-section" class="hidden">
+                            <label for="address-input" class="block font-medium mb-2 text-sm">
+                                <i class="fas fa-map-marker-alt text-red-500 mr-1"></i>Tu Dirección:
+                            </label>
+                            <div class="space-y-2">
+                                <div class="relative">
+                                    <input type="text" id="address-input" 
+                                           placeholder="Escribe tu dirección completa..." 
+                                           class="w-full p-2 border rounded-lg focus:ring-1 focus:ring-yellow-300 focus:border-yellow-400 pl-8 text-sm">
+                                    <i class="fas fa-search absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs"></i>
+                                </div>
+                                <!-- Mapa compacto -->
+                                <div id="map-container" class="hidden"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1 p-2 bg-blue-50 border border-blue-200 rounded text-xs">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                <strong>Zonas de entrega:</strong><br>
+                                • Zona 1 (0-4 km): $40<br>
+                                • Zona 2 (4-7 km): $40 + $10/km adicional<br>
+                                <small>Desde Coahuila 36, Emiliano Zapata, Minatitlán.</small>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Columna derecha: Resumen y pago -->
+                    <div class="space-y-4">
+                        <!-- Resumen del pedido -->
+                        <div class="p-3 bg-white rounded-lg border shadow-sm">
+                            <h4 class="font-semibold text-base mb-2 text-gray-800 flex items-center">
+                                <i class="fas fa-receipt mr-2 text-yellow-600"></i>
+                                Resumen
+                            </h4>
+                            <div class="space-y-1 text-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Subtotal:</span>
+                                    <span id="checkout-subtotal" class="font-semibold">$0.00</span>
+                                </div>
+                                <div id="checkout-delivery-fee" class="flex justify-between items-center hidden">
+                                    <span class="text-gray-600">Envío:</span>
+                                    <span class="font-semibold text-orange-600">+$40.00</span>
+                                </div>
+                                <div class="border-t pt-1 mt-1">
+                                    <div class="flex justify-between items-center">
+                                        <span class="font-bold text-gray-800">Total:</span>
+                                        <span id="checkout-total" class="text-lg font-bold text-[#FFB300]">$0.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Método de pago -->
+                        <div>
+                            <h4 class="font-semibold text-base mb-2 flex items-center">
+                                <i class="fas fa-credit-card mr-2 text-blue-600"></i>
+                                Método de pago
+                            </h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center p-2 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-200 border-yellow-300 bg-yellow-50">
+                                    <input type="radio" name="payment" value="Efectivo" class="form-radio text-[#FFB300]" checked>
+                                    <div class="ml-2 flex-grow">
+                                        <div class="font-medium text-gray-800 text-sm">💵 Efectivo</div>
+                                        <div class="text-xs text-gray-600">Pago al recibir</div>
+                                    </div>
+                                </label>
+                                
+                                <!-- Calculadora de cambio compacta -->
+                                <div id="cash-amount-container" class="ml-3 p-2 bg-blue-50 border border-blue-200 rounded-lg">
+                                    <label for="cash-amount" class="block text-xs font-medium mb-1 text-blue-800">
+                                        <i class="fas fa-calculator mr-1"></i>¿Con cuánto pagarás?
+                                    </label>
+                                    <input type="number" id="cash-amount" placeholder="Cantidad..." min="0" step="10" class="w-full p-1 border rounded text-xs focus:ring-1 focus:ring-blue-300">
+                                    
+                                    <!-- Display del cambio -->
+                                    <div id="change-display" class="mt-1 p-1 bg-green-50 border border-green-200 rounded text-xs hidden">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-green-700">
+                                                <i class="fas fa-hand-holding-usd mr-1"></i>Cambio:
+                                            </span>
+                                            <span id="change-amount" class="font-bold text-green-800">$0.00</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Advertencia compacta -->
+                                    <div id="insufficient-cash" class="mt-1 p-1 bg-red-50 border border-red-200 rounded text-xs hidden">
+                                        <div class="flex items-center text-red-700">
+                                            <i class="fas fa-exclamation-triangle mr-1"></i>
+                                            <span>Cantidad insuficiente</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <label class="flex items-center p-2 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-200">
+                                    <input type="radio" name="payment" value="Tarjeta" class="form-radio text-[#FFB300]">
+                                    <div class="ml-2 flex-grow">
+                                        <div class="font-medium text-gray-800 text-sm">💳 Tarjeta</div>
+                                        <div class="text-xs text-gray-600">Terminal</div>
+                                    </div>
+                                </label>
+                                
+                                <label class="flex items-center p-2 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition-all duration-200">
+                                    <input type="radio" name="payment" value="Transferencia" class="form-radio text-[#FFB300]">
+                                    <div class="ml-2 flex-grow">
+                                        <div class="font-medium text-gray-800 text-sm">🏦 Transferencia</div>
+                                        <div class="text-xs text-gray-600">Bancaria</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer fijo con botón -->
+            <div class="border-t bg-gray-50 p-3 rounded-b-lg">
+                <button id="send-whatsapp-btn" class="w-full bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600 transition duration-300 flex items-center justify-center space-x-2 disabled:bg-gray-400 disabled:cursor-not-allowed shadow-lg">
+                    <i class="fab fa-whatsapp text-xl"></i><span>Enviar Pedido por WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Player optimizado para móvil -->
+    <audio id="background-music" loop controls preload="auto" style="position: fixed; bottom: 80px; left: 10px; z-index: 1000; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); width: 200px; height: 40px;" class="hidden sm:block">
+        <source src="./SR & SRA BURGER FLOW.mp3" type="audio/mpeg">
+        <source src="SR & SRA BURGER FLOW.mp3" type="audio/mpeg">
+        Tu navegador no soporta la reproducción de audio.
+    </audio>
+    
+    <!-- Botón flotante de WhatsApp optimizado para móvil -->
+    <a href="https://wa.me/5219221593688" target="_blank" class="fixed bottom-24 sm:bottom-40 right-4 sm:right-6 bg-gradient-to-br from-green-400 to-green-600 text-white rounded-2xl w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center shadow-2xl hover:shadow-3xl hover:scale-110 transition-all duration-300 z-40 group">
+        <i class="fab fa-whatsapp text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300"></i>
+        <div class="absolute -left-20 sm:-left-24 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white px-3 py-1 rounded-lg text-xs sm:text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap hidden sm:block">
+            ¡Chatea con nosotros!
+        </div>
+    </a>
+
+    <!-- Botón flotante de ayuda optimizado para móvil -->
+    <button id="help-btn" class="fixed bottom-4 sm:bottom-20 right-4 sm:right-6 bg-gradient-to-br from-yellow-400 to-orange-500 text-white rounded-2xl w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center shadow-2xl hover:shadow-3xl hover:scale-110 transition-all duration-300 z-40 group">
+        <i class="fas fa-question text-xl sm:text-2xl group-hover:scale-110 transition-transform duration-300"></i>
+        <div class="absolute -left-12 sm:-left-16 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white px-3 py-1 rounded-lg text-xs sm:text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap hidden sm:block">
+            ¿Ayuda?
+        </div>
+    </button>
+
+    <!-- Modal de promociones - Diseño Premium Competitivo Mundial -->
+    <div id="promotions-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[70] hidden items-center justify-center p-2 sm:p-4">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-7xl mx-auto flex flex-col relative overflow-hidden" style="max-height: 95vh;">
+            <!-- Header Premium con gradiente dinámico -->
+            <div class="relative p-4 sm:p-6 lg:p-8 bg-gradient-to-r from-red-600 via-orange-500 to-yellow-500 text-white overflow-hidden">
+                <!-- Elementos decorativos animados -->
+                <div class="absolute top-0 left-0 w-full h-full">
+                    <div class="absolute top-4 left-8 w-16 h-16 bg-white/10 rounded-full animate-pulse hidden sm:block"></div>
+                    <div class="absolute top-12 right-12 w-8 h-8 bg-white/20 rounded-full animate-bounce hidden sm:block"></div>
+                    <div class="absolute bottom-4 left-1/4 w-12 h-12 bg-white/15 rounded-full animate-pulse hidden sm:block" style="animation-delay: 1s;"></div>
+                    <div class="absolute bottom-8 right-1/3 w-6 h-6 bg-white/25 rounded-full animate-bounce hidden sm:block" style="animation-delay: 0.5s;"></div>
+                </div>
+                
+                <div class="relative z-10 flex justify-between items-center">
+                    <div class="flex items-center space-x-2 sm:space-x-4">
+                        <div class="bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-2 sm:p-3 animate-wiggle">
+                            <i class="fas fa-fire text-xl sm:text-3xl lg:text-4xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-2xl lg:text-4xl font-black font-poppins tracking-tight">OFERTAS EXCLUSIVAS</h3>
+                            <p class="text-white/90 text-xs sm:text-sm lg:text-lg font-medium">¡Promociones que te harán volver por más!</p>
+                        </div>
+                    </div>
+                    <button id="close-promotions-modal-btn" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-2 sm:p-3 transition-all duration-300 hover:scale-110">
+                        <i class="fas fa-times text-lg sm:text-xl lg:text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contenido principal con scroll suave -->
+            <div class="flex-1 overflow-y-auto modal-scrollbar bg-gradient-to-b from-gray-50 to-white">
+                
+                <!-- Promociones principales - Layout optimizado para móvil -->
+                <div class="p-3 sm:p-6 lg:p-8">
+                    
+                    <!-- Mobile: Navegación por tabs / Desktop: Grid completo -->
+                    <div class="md:hidden mb-6">
+                        <!-- Tabs para móvil -->
+                        <div class="flex space-x-2 overflow-x-auto pb-2 mb-4">
+                            <button onclick="showMobilePromo('daily')" class="mobile-promo-tab active flex-shrink-0 bg-gradient-to-r from-red-500 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold">
+                                📅 Diarias
+                            </button>
+                            <button onclick="showMobilePromo('combos')" class="mobile-promo-tab flex-shrink-0 bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-bold">
+                                🍔 Combos
+                            </button>
+                            <button onclick="showMobilePromo('weekend')" class="mobile-promo-tab flex-shrink-0 bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-bold">
+                                🎉 Fin de Semana
+                            </button>
+                        </div>
+                        
+                        <!-- Contenido por tabs para móvil -->
+                        <div id="mobile-daily-promos" class="mobile-promo-content">
+                            <div class="space-y-4">
+                                <!-- Promoción destacada del día (dinámico) -->
+                                <div id="mobile-daily-promo-card" class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-4 text-white relative overflow-hidden">
+                                    <div id="mobile-today-badge" class="absolute top-2 right-2 bg-yellow-400 text-blue-900 px-2 py-1 rounded-full text-xs font-black">HOY</div>
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-calendar-day text-xl"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <h4 id="mobile-current-day" class="text-sm font-bold text-blue-200">VIERNES</h4>
+                                            <h3 id="mobile-current-promo-title" class="text-lg font-black">CARNE SUPREMA</h3>
+                                            <div class="flex items-center space-x-2">
+                                                <span id="mobile-current-promo-discount" class="text-xl font-black text-yellow-300">Carne extra</span>
+                                                <span id="mobile-current-promo-desc" class="text-sm text-blue-100">Por solo +$10</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Lista compacta de promociones diarias (solo lunes-jueves) -->
+                                <div class="grid grid-cols-1 gap-3">
+                                    <div class="bg-white border border-gray-200 rounded-xl p-3 flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                            <i class="fas fa-hotdog text-blue-600"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <h4 class="font-bold text-gray-900">Lunes Hotdog Mania</h4>
+                                            <p class="text-sm text-gray-600">20% descuento en hotdogs</p>
+                                        </div>
+                                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-bold">LUNES</span>
+                                    </div>
+                                    
+                                    <div class="bg-white border border-gray-200 rounded-xl p-3 flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                            <i class="fas fa-hamburger text-green-600"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <h4 class="font-bold text-gray-900">Martes BBQ Beacon</h4>
+                                            <p class="text-sm text-gray-600">Precio único $100</p>
+                                        </div>
+                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-bold">MARTES</span>
+                                    </div>
+                                    
+                                    <div class="bg-white border border-gray-200 rounded-xl p-3 flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                                            <i class="fas fa-gift text-purple-600"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <h4 class="font-bold text-gray-900">Papas Gratis</h4>
+                                            <p class="text-sm text-gray-600">Compra hamburguesa y llévate papas gratis</p>
+                                        </div>
+                                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs font-bold">MIÉRCOLES</span>
+                                    </div>
+                                    
+                                    <div class="bg-white border border-gray-200 rounded-xl p-3 flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                                            <i class="fas fa-plus-circle text-red-600"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <h4 class="font-bold text-gray-900">Carne & Tocino</h4>
+                                            <p class="text-sm text-gray-600">50% descuento en carne extra y tocino</p>
+                                        </div>
+                                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-bold">JUEVES</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="mobile-combos-promos" class="mobile-promo-content hidden">
+                            <!-- Nota importante sobre promociones -->
+                            <div class="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-4">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-info-circle text-blue-600"></i>
+                                    <p class="text-blue-800 text-sm font-semibold">
+                                        ⚠️ Las promociones diarias NO aplican a combos (ya tienen descuento incluido)
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <div class="bg-gradient-to-r from-pink-400 to-rose-500 rounded-2xl p-4 text-white">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h3 class="text-lg font-black">💕 COMBO PAREJA</h3>
+                                        <span class="bg-yellow-400 text-pink-900 px-2 py-1 rounded-full text-xs font-black">AHORRA $55</span>
+                                    </div>
+                                    <p class="text-pink-100 text-sm mb-2">2 Hamburguesas + Papas + 7 Aros de cebolla</p>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="text-sm text-pink-200 line-through">$305</span>
+                                        <span class="text-2xl font-black text-yellow-300">$250</span>
+                                    </div>
+                                    <button data-combo-id="6" class="promo-combo-btn w-full bg-white/20 backdrop-blur-sm text-white py-2 rounded-lg text-sm font-bold mt-3 hover:bg-white/30 transition-all">
+                                        Configurar Combo
+                                    </button>
+                                </div>
+                                
+                                <!-- Otros combos en formato compacto -->
+                                <div class="grid grid-cols-1 gap-3">
+                                    <div class="bg-white border-2 border-orange-200 rounded-xl p-3">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <h4 class="font-bold text-gray-900">🍟 COMBO FAMILIAR</h4>
+                                                <p class="text-sm text-gray-600">4 Hamburguesas + 2 Papas + Bebidas</p>
+                                                <span class="text-lg font-black text-orange-600">$480</span>
+                                            </div>
+                                            <button data-combo-id="15" class="promo-combo-btn bg-orange-500 text-white px-3 py-2 rounded-lg text-xs font-bold">
+                                                Configurar
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-white border-2 border-green-200 rounded-xl p-3">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <h4 class="font-bold text-gray-900">🥤 COMBO CLÁSICO</h4>
+                                                <p class="text-sm text-gray-600">1 Hamburguesa + Papas + Bebida</p>
+                                                <span class="text-lg font-black text-green-600">$135</span>
+                                            </div>
+                                            <button data-combo-id="7" class="promo-combo-btn bg-green-500 text-white px-3 py-2 rounded-lg text-xs font-bold">
+                                                Configurar
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-white border-2 border-blue-200 rounded-xl p-3">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <h4 class="font-bold text-gray-900">🌟 COMBO SUPREMO</h4>
+                                                <p class="text-sm text-gray-600">2 Hamburguesas + Papas + Aros</p>
+                                                <span class="text-lg font-black text-blue-600">$285</span>
+                                            </div>
+                                            <button data-combo-id="14" class="promo-combo-btn bg-blue-500 text-white px-3 py-2 rounded-lg text-xs font-bold">
+                                                Configurar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="mobile-weekend-promos" class="mobile-promo-content hidden">
+                            <div class="space-y-4">
+                                <div class="bg-gradient-to-r from-gray-500 to-gray-700 rounded-2xl p-4 text-white">
+                                    <div class="text-center">
+                                        <h3 class="text-xl font-black mb-2">📅 FINES DE SEMANA</h3>
+                                        <p class="text-gray-200 mb-3">Menú completo a precio normal</p>
+                                        <div class="bg-white/20 backdrop-blur-sm rounded-lg p-3">
+                                            <h4 class="font-bold mb-1">Sin promociones especiales</h4>
+                                            <p class="text-sm">Disfruta nuestro menú completo</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+                                    <h4 class="font-bold text-gray-900 mb-2">� CALIDAD TODOS LOS DÍAS</h4>
+                                    <p class="text-gray-600 text-sm mb-3">Los fines de semana mantenemos nuestros precios estándar</p>
+                                    <div class="bg-blue-100 text-blue-800 px-3 py-2 rounded-lg text-sm font-bold">
+                                        Mismo sabor, mismo precio justo
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grid completo para desktop (hidden en móvil) -->
+                    <div class="hidden md:grid md:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6 mb-8">
+                        
+                        <!-- PROMOCIÓN DEL DÍA ACTUAL - Diseño ultra-premium dinámico -->
+                        <div id="desktop-daily-promo-card" class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                            <div id="desktop-today-badge" class="absolute top-4 right-4 bg-yellow-400 text-blue-900 px-3 py-1 rounded-full text-xs font-black animate-pulse">
+                                HOY
+                            </div>
+                            <div class="relative p-6 text-center">
+                                <div class="mb-4">
+                                    <div class="w-16 h-16 mx-auto bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-calendar-day text-2xl"></i>
+                                    </div>
+                                    <h4 id="desktop-current-day" class="text-sm font-bold text-blue-200 mb-1">VIERNES</h4>
+                                    <h3 id="desktop-current-promo-title" class="text-xl font-black mb-2">CARNE SUPREMA</h3>
+                                </div>
+                                <div class="space-y-2 mb-4">
+                                    <div id="desktop-current-promo-discount" class="text-3xl font-black text-yellow-300">Carne extra</div>
+                                    <p id="desktop-current-promo-desc" class="text-sm text-blue-100">Por solo +$10</p>
+                                </div>
+                                <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl text-xs font-bold">
+                                    Promoción Especial
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- LUNES - HOTDOG MANIA -->
+                        <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                            <div class="absolute top-4 right-4 bg-yellow-400 text-blue-900 px-3 py-1 rounded-full text-xs font-black animate-pulse">
+                                20% OFF
+                            </div>
+                            <div class="relative p-6 text-center">
+                                <div class="mb-4">
+                                    <div class="w-16 h-16 mx-auto bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-hotdog text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-sm font-bold text-blue-200 mb-1">LUNES</h4>
+                                    <h3 class="text-xl font-black mb-2">HOTDOG MANIA</h3>
+                                </div>
+                                <div class="space-y-2 mb-4">
+                                    <div class="text-3xl font-black text-yellow-300">20% OFF</div>
+                                    <p class="text-sm text-blue-100">En todos los hotdogs</p>
+                                </div>
+                                <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl text-xs font-bold">
+                                    Lunes de Hotdogs
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MARTES -->
+                        <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-green-600 to-emerald-800 text-white shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                            <div class="absolute top-4 right-4 bg-yellow-400 text-green-900 px-3 py-1 rounded-full text-xs font-black animate-pulse">
+                                ESPECIAL
+                            </div>
+                            <div class="relative p-6 text-center">
+                                <div class="mb-4">
+                                    <div class="w-16 h-16 mx-auto bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-hamburger text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-sm font-bold text-green-200 mb-1">MARTES</h4>
+                                    <h3 class="text-xl font-black mb-2">BBQ BEACON</h3>
+                                </div>
+                                <div class="space-y-2 mb-4">
+                                    <div class="text-3xl font-black text-yellow-300">$100</div>
+                                    <p class="text-sm text-green-100">Precio único</p>
+                                </div>
+                                <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl text-xs font-bold">
+                                    Martes Únicos
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MIÉRCOLES -->
+                        <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-600 to-violet-800 text-white shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                            <div class="absolute top-4 right-4 bg-yellow-400 text-purple-900 px-3 py-1 rounded-full text-xs font-black animate-pulse">
+                                GRATIS
+                            </div>
+                            <div class="relative p-6 text-center">
+                                <div class="mb-4">
+                                    <div class="w-16 h-16 mx-auto bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-gift text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-sm font-bold text-purple-200 mb-1">MIÉRCOLES</h4>
+                                    <h3 class="text-lg font-black mb-2">PAPAS GRATIS</h3>
+                                </div>
+                                <div class="space-y-2 mb-4">
+                                    <div class="text-xl font-black text-yellow-300">COMPLEMENTO</div>
+                                    <p class="text-sm text-purple-100">Compra una hamburguesa y llévate unas papas complemento gratis</p>
+                                </div>
+                                <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl text-xs font-bold">
+                                    Miércoles de Papas
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- JUEVES -->
+                        <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-600 to-rose-800 text-white shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                            <div class="absolute top-4 right-4 bg-yellow-400 text-red-900 px-3 py-1 rounded-full text-xs font-black animate-pulse">
+                                50% OFF
+                            </div>
+                            <div class="relative p-6 text-center">
+                                <div class="mb-4">
+                                    <div class="w-16 h-16 mx-auto bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-plus-circle text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-sm font-bold text-red-200 mb-1">JUEVES</h4>
+                                    <h3 class="text-lg font-black mb-2">CARNE & TOCINO</h3>
+                                </div>
+                                <div class="space-y-2 mb-4">
+                                    <div class="text-3xl font-black text-yellow-300">50% OFF</div>
+                                    <p class="text-sm text-red-100">Carne extra + tocino</p>
+                                </div>
+                                <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl text-xs font-bold">
+                                    Jueves Carnívoros
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección de combos disponibles - Layout tipo McDonald's App -->
+                    <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100 mb-8">
+                        <div class="text-center mb-8">
+                            <h2 class="text-2xl sm:text-3xl font-black text-gray-900 mb-2">🍔 NUESTROS COMBOS</h2>
+                            <p class="text-gray-600 text-lg">Los mejores combos para compartir y disfrutar</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Combo Pareja -->
+                            <div class="bg-gradient-to-r from-pink-400 to-rose-500 rounded-2xl p-6 text-white relative overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02]">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+                                <div class="relative z-10">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-xl font-black">💕 COMBO PAREJA</h3>
+                                        <span class="bg-yellow-400 text-pink-900 px-3 py-1 rounded-full text-sm font-black">AHORRA $55</span>
+                                    </div>
+                                    <p class="text-pink-100 mb-4">2 Hamburguesas + Papas + 7 Aros de cebolla</p>
+                                    <div class="flex items-end space-x-3 mb-4">
+                                        <span class="text-2xl text-pink-200 line-through">$305</span>
+                                        <span class="text-4xl font-black text-yellow-300">$250</span>
+                                    </div>
+                                    <button data-combo-id="6" class="promo-combo-btn bg-white text-pink-600 px-6 py-3 rounded-xl font-bold hover:bg-pink-50 transition-colors">
+                                        Configurar Combo
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Combo Dúo -->
+                            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl p-6 text-white relative overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02]">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+                                <div class="relative z-10">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-xl font-black">🤝 COMBO DÚO</h3>
+                                        <span class="bg-yellow-400 text-blue-900 px-3 py-1 rounded-full text-sm font-black">AHORRA $40</span>
+                                    </div>
+                                    <p class="text-blue-100 mb-4">1 Hamburguesa + 1 Hotdog + Papas</p>
+                                    <div class="flex items-end space-x-3 mb-4">
+                                        <span class="text-2xl text-blue-200 line-through">$220</span>
+                                        <span class="text-4xl font-black text-yellow-300">$180</span>
+                                    </div>
+                                    <button data-combo-id="15" class="promo-combo-btn bg-white text-blue-600 px-6 py-3 rounded-xl font-bold hover:bg-blue-50 transition-colors">
+                                        Configurar Combo
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Combo Amigos -->
+                            <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl p-6 text-white relative overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02]">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+                                <div class="relative z-10">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-xl font-black">👥 COMBO AMIGOS</h3>
+                                        <span class="bg-yellow-400 text-green-900 px-3 py-1 rounded-full text-sm font-black">AHORRA $60</span>
+                                    </div>
+                                    <p class="text-green-100 mb-4">3 Hamburguesas + Papas + Coca-Cola 1.75L</p>
+                                    <div class="flex items-end space-x-3 mb-4">
+                                        <span class="text-2xl text-green-200 line-through">$400</span>
+                                        <span class="text-4xl font-black text-yellow-300">$340</span>
+                                    </div>
+                                    <button data-combo-id="7" class="promo-combo-btn bg-white text-green-600 px-6 py-3 rounded-xl font-bold hover:bg-green-50 transition-colors">
+                                        Configurar Combo
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Combo Familiar -->
+                            <div class="bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl p-6 text-white relative overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02]">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+                                <div class="relative z-10">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-xl font-black">👨‍👩‍👧‍👦 COMBO FAMILIAR</h3>
+                                        <span class="bg-yellow-400 text-red-900 px-3 py-1 rounded-full text-sm font-black">AHORRA $80</span>
+                                    </div>
+                                    <p class="text-orange-100 mb-4">5 Hamburguesas + Papas + Aros + Coca-Cola 3L</p>
+                                    <div class="flex items-end space-x-3 mb-4">
+                                        <span class="text-2xl text-orange-200 line-through">$730</span>
+                                        <span class="text-4xl font-black text-yellow-300">$650</span>
+                                    </div>
+                                    <div class="bg-yellow-400 text-red-900 px-4 py-2 rounded-xl font-black text-sm mb-3 inline-block">
+                                        🚚 ENVÍO GRATIS INCLUIDO
+                                    </div>
+                                    <button data-combo-id="14" class="promo-combo-btn bg-white text-red-600 px-6 py-3 rounded-xl font-bold hover:bg-red-50 transition-colors w-full">
+                                        Configurar Combo
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Banner promocional de combos -->
+                        <div class="mt-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-6 text-center text-white relative overflow-hidden">
+                            <div class="absolute inset-0 bg-black/20"></div>
+                            <div class="relative z-10">
+                                <h3 class="text-2xl font-black mb-2">🎯 ¡PERSONALIZA TU COMBO!</h3>
+                                <p class="text-lg text-purple-100 mb-4">Elige tus hamburguesas favoritas y crea la combinación perfecta</p>
+                                <button id="scroll-to-combos" class="inline-flex items-center bg-yellow-400 text-purple-900 px-6 py-3 rounded-2xl font-black text-lg hover:bg-yellow-300 transition-colors">
+                                    <i class="fas fa-cogs mr-2"></i>
+                                    Ver Todos los Combos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Call to Action Final - Diseño Premium -->
+                    <div class="bg-gradient-to-r from-gray-900 to-black rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden">
+                        <!-- Efectos visuales de fondo -->
+                        <div class="absolute inset-0">
+                            <div class="absolute top-8 left-8 w-2 h-2 bg-yellow-400 rounded-full animate-ping"></div>
+                            <div class="absolute top-16 right-12 w-1 h-1 bg-white rounded-full animate-pulse"></div>
+                            <div class="absolute bottom-12 left-16 w-3 h-3 bg-yellow-400/50 rounded-full animate-bounce"></div>
+                            <div class="absolute bottom-8 right-8 w-2 h-2 bg-white/50 rounded-full animate-ping" style="animation-delay: 1s;"></div>
+                        </div>
+                        
+                        <div class="relative z-10">
+                            <h2 class="text-2xl sm:text-4xl font-black text-white mb-4">
+                                📱 ¡SÍGUENOS PARA MÁS OFERTAS!
+                            </h2>
+                            <p class="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+                                Únete a nuestra comunidad y sé el primero en conocer promociones exclusivas, nuevos productos y ofertas especiales.
+                            </p>
+                            
+                            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                                <a href="https://www.facebook.com/profile.php?id=61570144580225" target="_blank" 
+                                   class="group bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-2xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center space-x-3">
+                                    <i class="fab fa-facebook text-xl group-hover:scale-110 transition-transform"></i>
+                                    <span>Facebook</span>
+                                    <div class="bg-blue-500 text-xs px-2 py-1 rounded-full">+500</div>
+                                </a>
+                                
+                                <a href="https://www.instagram.com/srysraburger/" target="_blank" 
+                                   class="group bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white px-6 py-4 rounded-2xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center space-x-3">
+                                    <i class="fab fa-instagram text-xl group-hover:scale-110 transition-transform"></i>
+                                    <span>Instagram</span>
+                                    <div class="bg-pink-400 text-xs px-2 py-1 rounded-full">NEW</div>
+                                </a>
+                                
+                                <a href="https://www.tiktok.com/@srsra.burger" target="_blank" 
+                                   class="group bg-black hover:bg-gray-800 text-white px-6 py-4 rounded-2xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center space-x-3">
+                                    <i class="fab fa-tiktok text-xl group-hover:scale-110 transition-transform"></i>
+                                    <span>TikTok</span>
+                                    <div class="bg-gray-700 text-xs px-2 py-1 rounded-full">VIRAL</div>
+                                </a>
+                            </div>
+                            
+                            <div class="inline-flex items-center bg-yellow-400 text-black px-6 py-3 rounded-2xl font-black text-lg animate-pulse">
+                                <i class="fas fa-bell mr-2"></i>
+                                ¡Activa las notificaciones!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de ayuda -->
+    <div id="help-modal" class="fixed inset-0 bg-black/60 z-[70] hidden items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg mx-auto flex flex-col" style="max-height: 90vh;">
+            <div class="p-4 border-b flex justify-between items-center">
+                <h3 class="text-2xl font-bold font-poppins">¿Cómo hacer tu pedido?</h3>
+                <button id="close-help-modal-btn" class="text-gray-500 hover:text-gray-800">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto modal-scrollbar space-y-4">
+                <div class="border-l-4 border-[#FFB300] pl-4 py-2">
+                    <h4 class="font-bold text-lg mb-1">Paso 1: Explora nuestro menú</h4>
+                    <p class="text-gray-600">Navega por las diferentes categorías y descubre nuestras deliciosas hamburguesas, combos y extras.</p>
+                </div>
+                
+                <div class="border-l-4 border-[#FFB300] pl-4 py-2">
+                    <h4 class="font-bold text-lg mb-1">Paso 2: Personaliza tus productos</h4>
+                    <p class="text-gray-600">Haz clic en "Personalizar" para añadir ingredientes extra o acompañamientos a tus hamburguesas. Para los combos, presiona "Elegir" y selecciona tus hamburguesas favoritas.</p>
+                </div>
+                
+                <div class="border-l-4 border-[#FFB300] pl-4 py-2">
+                    <h4 class="font-bold text-lg mb-1">Paso 3: Agrega al carrito</h4>
+                    <p class="text-gray-600">Una vez personalizados, añade los productos a tu carrito. Puedes ver tu pedido haciendo clic en "Ver Carrito" en la parte superior.</p>
+                </div>
+                
+                <div class="border-l-4 border-[#FFB300] pl-4 py-2">
+                    <h4 class="font-bold text-lg mb-1">Paso 4: Finaliza tu pedido</h4>
+                    <p class="text-gray-600">Cuando estés listo, presiona "Finalizar Pedido" en el carrito y completa la información solicitada:</p>
+                    <ul class="list-disc ml-6 mt-2 text-gray-600">
+                        <li>Tu nombre completo</li>
+                        <li>Tu número de teléfono</li>
+                        <li>Tipo de entrega: recoger en local o envío a domicilio</li>
+                        <li>Si eliges envío a domicilio, ingresa tu dirección completa</li>
+                        <li>Método de pago preferido</li>
+                    </ul>
+                </div>
+                
+                <div class="border-l-4 border-[#FFB300] pl-4 py-2">
+                    <h4 class="font-bold text-lg mb-1">Paso 5: Envía tu pedido por WhatsApp</h4>
+                    <p class="text-gray-600">Finalmente, haz clic en "Enviar Pedido por WhatsApp" y se abrirá una conversación con tu pedido listo para enviar. Solo presiona enviar y espera nuestra confirmación.</p>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-md mt-6">
+                    <h4 class="font-bold text-lg mb-2 flex items-center text-blue-700">
+                        <i class="fas fa-info-circle mr-2"></i> Información adicional
+                    </h4>
+                    <ul class="list-disc ml-6 text-blue-700">
+                        <li class="mb-1">El área de entrega a domicilio está limitada a un radio de 4 km desde nuestra ubicación en Coahuila 36, 10 de Mayo, Minatitlán, Veracruz.</li>
+                        <li class="mb-1">El costo de envío a domicilio es de $40 adicionales.</li>
+                        <li class="mb-1">Horario de atención: Lunes a Domingo de 3:00 PM a 12:00 AM.</li>
+                        <li>Para cualquier duda adicional, contáctanos por WhatsApp o llama al 922 159 3688.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Configuration -->
+    <script type="module" src="js/firebase-config.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+</html>
